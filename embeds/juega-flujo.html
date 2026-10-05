@@ -1,0 +1,110 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>JOAQUIN JUEGA en diagrama de flujo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --bg:#F2F4FA; --surface:#FFFFFF; --ink:#1E2640; --muted:#5A6482; --line:#DCE1EE;
+  --accent:#855CD6; --accent-soft:#EEE7FB;
+  --proc:#E8F0FF; --proc-s:#3373CC;
+  --dec:#FFF1D6; --dec-s:#CF8B17;
+  --io:#E1F3FA; --io-s:#2E8EB8;
+  --term:#EEE7FB; --term-s:#855CD6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --bg:#131725; --surface:#1C2133; --ink:#E7EBF6; --muted:#A3ACC6; --line:#2E3550;
+    --accent:#B196F0; --accent-soft:#2B2547;
+    --proc:#1E2D4D; --proc-s:#6FA8FF; --dec:#3A2E14; --dec-s:#FFB938;
+    --io:#16333F; --io-s:#6CC3E6; --term:#2B2547; --term-s:#B196F0;}
+}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#131725; --surface:#1C2133; --ink:#E7EBF6; --muted:#A3ACC6; --line:#2E3550;
+  --accent:#B196F0; --accent-soft:#2B2547;
+  --proc:#1E2D4D; --proc-s:#6FA8FF; --dec:#3A2E14; --dec-s:#FFB938;
+  --io:#16333F; --io-s:#6CC3E6; --term:#2B2547; --term-s:#B196F0;}
+
+body{background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:32px 64px;display:flex;flex-direction:column;gap:36px}
+h1,h2,h3{font-family:Fredoka,"Atkinson Hyperlegible",system-ui,sans-serif;text-wrap:balance;margin:0;font-weight:600}
+p{margin:0}
+.top{display:flex;flex-direction:column;gap:12px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(34px,6vw,54px);line-height:1.05}
+.lead{max-width:66ch;color:var(--muted);font-size:17px}
+.course{display:inline-flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding:10px 14px;border-radius:10px;background:var(--accent-soft);width:fit-content;max-width:100%}
+.course b{font-family:Fredoka,sans-serif;font-weight:600}
+.legend{max-width:560px}
+
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+figure h2{font-size:24px}
+figcaption{color:var(--muted);max-width:70ch}
+.scroll{overflow-x:auto}
+.scroll svg{display:block;margin:0 auto}
+#main svg{width:100%;min-width:720px;max-width:980px;height:auto}
+.pair{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.pair{grid-template-columns:1fr}}
+#joa svg{width:100%;min-width:520px;max-width:640px;height:auto}
+#bar svg{width:100%;max-width:300px;height:auto}
+
+svg{color:var(--ink);font-family:"Atkinson Hyperlegible",system-ui,sans-serif}
+.proc{fill:var(--proc);stroke:var(--proc-s);stroke-width:1.6}
+.dec{fill:var(--dec);stroke:var(--dec-s);stroke-width:1.6}
+.io{fill:var(--io);stroke:var(--io-s);stroke-width:1.6}
+.term{fill:var(--term);stroke:var(--term-s);stroke-width:1.8}
+.edge{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+.lbl{fill:currentColor;font-size:13px}
+.lbl.strong{font-weight:700}
+.tiny{fill:var(--muted);font-size:11px}
+.tag{fill:var(--accent);font-size:12px;font-weight:700}
+.note{fill:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+
+ol.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;max-width:70ch}
+ol.steps li::marker{color:var(--accent);font-weight:700}
+footer{color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Proyecto Scratch · diagrama de flujo</span>
+    <h1>JOAQUIN JUEGA</h1>
+    <p class="lead">El recorrido completo de una partida: desde la bandera verde y el login hasta el ranking final, con los tres niveles de 50 globos y la decisión de seguir jugando.</p>
+    <div class="course"><b>INFORMÁTICA EDUCATIVA II</b><span>Profesorado Superior de Informática</span></div>
+    <div class="legend"><svg viewBox='0 0 560 70' role='img' aria-label='Símbolos del diagrama de flujo'><rect class='term' x='5.0' y='7.0' width='110' height='34' rx='17.0'/><text class='lbl strong' text-anchor='middle' dominant-baseline='central'><tspan x='60' y='24'>Inicio / fin</tspan></text><rect class='proc' x='135.0' y='7.0' width='110' height='34' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='190' y='24'>Proceso</tspan></text><polygon class='dec' points='320,1.0 380.0,24 320,47.0 260.0,24'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='320' y='24'>Decisión</tspan></text><polygon class='io' points='419.0,7.0 529.0,7.0 501.0,41.0 391.0,41.0'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='460' y='24'>Entrada</tspan></text><text class='tiny' text-anchor='middle' dominant-baseline='central'><tspan x='60' y='58'>óvalo</tspan></text><text class='tiny' text-anchor='middle' dominant-baseline='central'><tspan x='190' y='58'>rectángulo</tspan></text><text class='tiny' text-anchor='middle' dominant-baseline='central'><tspan x='320' y='58'>rombo</tspan></text><text class='tiny' text-anchor='middle' dominant-baseline='central'><tspan x='460' y='58'>paralelogramo</tspan></text></svg></div>
+  </header>
+
+  <figure id="main">
+    <h2>Flujo principal del juego</h2>
+    <div class="scroll"><svg viewBox='0 0 980 1680' role='img' aria-label='Diagrama de flujo principal de JOAQUIN JUEGA: login, preparación del nivel, caída y conteo de 50 globos, ranking y decisión de seguir o terminar.'><defs><marker id='ah' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><rect class='term' x='230.0' y='20.0' width='200' height='44' rx='22.0'/><text class='lbl strong' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='42'>INICIO (bandera verde)</tspan></text><polyline class='edge' points='330,64 330,90' marker-end='url(#ah)'/><rect class='proc' x='210.0' y='90.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='113'>Mostrar portada · vaciar ranking</tspan></text><polyline class='edge' points='330,136 330,162' marker-end='url(#ah)'/><polygon class='io' points='224.0,162.0 464.0,162.0 436.0,208.0 196.0,208.0'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='185'>Ingresar nombre de usuario</tspan></text><polyline class='edge' points='330,208 330,232' marker-end='url(#ah)'/><polygon class='dec' points='330,232.0 440.0,274 330,316.0 220.0,274'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='274'>¿Nombre vacío?</tspan></text><polyline class='edge' points='440,274 560,274' marker-end='url(#ah)'/><text class='tag' x='448' y='266' text-anchor='start'>sí</text><rect class='proc' x='560.0' y='251.0' width='180' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='650' y='274'>Usuario = &quot;Invitado&quot;</tspan></text><polyline class='edge' points='650,297 650,330 330,330'/><polyline class='edge' points='330,316 330,350' marker-end='url(#ah)'/><text class='tag' x='322' y='334' text-anchor='end'>no</text><rect class='proc' x='210.0' y='350.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='373'>Nivel = 1</tspan></text><polyline class='edge' points='330,396 330,428' marker-end='url(#ah)'/><rect class='proc' x='200.0' y='430.0' width='260' height='64' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='454'>Preparar nivel: contadores en 0,</tspan><tspan x='330' y='470'>velocidad · tamaño · intervalo</tspan></text><text class='note' x='470' y='450' text-anchor='start'>N1: 3 · 100 % · 1,4 s</text><text class='note' x='470' y='466' text-anchor='start'>N2: 5 · 80 % · 1,0 s</text><text class='note' x='470' y='482' text-anchor='start'>N3: 8 · 60 % · 0,7 s + zigzag</text><polyline class='edge' points='330,494 330,524' marker-end='url(#ah)'/><rect class='proc' x='210.0' y='524.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='547'>Encender cámara (invisible)</tspan></text><polyline class='edge' points='330,570 330,600' marker-end='url(#ah)'/><rect class='proc' x='210.0' y='600.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='623'>Lanzar un globo (clon)</tspan></text><polyline class='edge' points='330,646 330,676' marker-end='url(#ah)'/><rect class='proc' x='210.0' y='676.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='699'>El globo baja (velocidad)</tspan></text><polyline class='edge' points='330,722 330,750' marker-end='url(#ah)'/><polygon class='dec' points='330,750.0 440.0,792 330,834.0 220.0,792'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='792'>¿Toca a Joaquín?</tspan></text><polyline class='edge' points='440,792 560,792' marker-end='url(#ah)'/><text class='tag' x='448' y='784' text-anchor='start'>sí</text><rect class='proc' x='560.0' y='769.0' width='180' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='650' y='792'>Cabeceados + 1</tspan></text><polyline class='edge' points='330,834 330,866' marker-end='url(#ah)'/><text class='tag' x='338' y='852' text-anchor='start'>no</text><polygon class='dec' points='330,866.0 440.0,908 330,950.0 220.0,908'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='908'>¿Llegó al piso?</tspan></text><polyline class='edge' points='220,908 150,908 150,699 210,699' marker-end='url(#ah)'/><text class='tag' x='212' y='900' text-anchor='end'>no</text><polyline class='edge' points='330,950 330,980' marker-end='url(#ah)'/><text class='tag' x='338' y='966' text-anchor='start'>sí</text><rect class='proc' x='210.0' y='980.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1003'>No cabeceados + 1</tspan></text><polyline class='edge' points='330,1026 330,1044'/><polyline class='edge' points='650,815 650,1044 330,1044'/><polyline class='edge' points='330,1044 330,1062' marker-end='url(#ah)'/><rect class='proc' x='180.0' y='1062.0' width='300' height='64' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1086'>Puntaje = Cabeceados − No cabeceados</tspan><tspan x='330' y='1102'>actualizar barra de progreso</tspan></text><polyline class='edge' points='330,1126 330,1156' marker-end='url(#ah)'/><polygon class='dec' points='330,1156.0 440.0,1198 330,1240.0 220.0,1198'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1190'>¿50 globos</tspan><tspan x='330' y='1206'>resueltos?</tspan></text><polyline class='edge' points='220,1198 90,1198 90,623 210,623' marker-end='url(#ah)'/><text class='tag' x='212' y='1190' text-anchor='end'>no</text><polyline class='edge' points='330,1240 330,1270' marker-end='url(#ah)'/><text class='tag' x='338' y='1256' text-anchor='start'>sí</text><rect class='proc' x='180.0' y='1270.0' width='300' height='64' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1294'>Insertar resultado en el ranking</tspan><tspan x='330' y='1310'>(orden de mayor a menor) y mostrarlo</tspan></text><polyline class='edge' points='330,1334 330,1364' marker-end='url(#ah)'/><polygon class='dec' points='330,1364.0 440.0,1406 330,1448.0 220.0,1406'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1406'>¿Nivel &lt; 3?</tspan></text><polyline class='edge' points='440,1406 540,1406' marker-end='url(#ah)'/><text class='tag' x='448' y='1398' text-anchor='start'>sí</text><polygon class='dec' points='650,1364.0 760.0,1406 650,1448.0 540.0,1406'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='650' y='1398'>¿Seguir con el</tspan><tspan x='650' y='1414'>nivel siguiente?</tspan></text><polyline class='edge' points='760,1406 800,1406' marker-end='url(#ah)'/><text class='tag' x='768' y='1398' text-anchor='start'>sí</text><rect class='proc' x='800.0' y='1383.0' width='160' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='880' y='1406'>Nivel = Nivel + 1</tspan></text><polyline class='edge' points='880,1383 880,412 330,412' marker-end='url(#ah)'/><polyline class='edge' points='650,1448 650,1640 430,1640' marker-end='url(#ah)'/><text class='tag' x='658' y='1466' text-anchor='start'>no</text><polyline class='edge' points='330,1448 330,1478' marker-end='url(#ah)'/><text class='tag' x='338' y='1464' text-anchor='start'>no</text><polygon class='dec' points='330,1478.0 440.0,1520 330,1562.0 220.0,1520'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1520'>¿Jugar de nuevo?</tspan></text><polyline class='edge' points='220,1520 40,1520 40,185 209,185' marker-end='url(#ah)'/><text class='tag' x='212' y='1512' text-anchor='end'>sí</text><text class='note' x='48' y='1538' text-anchor='start'>otro usuario</text><polyline class='edge' points='330,1562 330,1618' marker-end='url(#ah)'/><text class='tag' x='338' y='1578' text-anchor='start'>no</text><rect class='term' x='230.0' y='1618.0' width='200' height='44' rx='22.0'/><text class='lbl strong' text-anchor='middle' dominant-baseline='central'><tspan x='330' y='1640'>FIN: portada + ranking</tspan></text></svg></div>
+    <figcaption>Para que se lea más fácil, el diagrama muestra un globo por vez. En Scratch los globos son clones que caen al mismo tiempo, y cada uno recorre el tramo "baja → ¿toca a Joaquín? → ¿llegó al piso?" por su cuenta. El nivel termina cuando entre cabeceados y no cabeceados suman 50.</figcaption>
+  </figure>
+
+  <div class="pair">
+    <figure id="joa">
+      <h2>Control de Joaquín</h2>
+      <div class="scroll"><svg viewBox='0 0 640 510' role='img' aria-label='Control de Joaquín: mientras dura el nivel, se mueve según el movimiento de la cámara o las flechas y no sale de la pantalla.'><defs><marker id='ah' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><rect class='term' x='150.0' y='14.0' width='200' height='44' rx='22.0'/><text class='lbl strong' text-anchor='middle' dominant-baseline='central'><tspan x='250' y='36'>Al recibir «Jugar»</tspan></text><polyline class='edge' points='250,58 250,88' marker-end='url(#ah)'/><polygon class='dec' points='250,88.0 360.0,130 250,172.0 140.0,130'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='250' y='122'>¿Terminó</tspan><tspan x='250' y='138'>el nivel?</tspan></text><polyline class='edge' points='360,130 430,130' marker-end='url(#ah)'/><text class='tag' x='368' y='122' text-anchor='start'>sí</text><rect class='term' x='430.0' y='108.0' width='140' height='44' rx='22.0'/><text class='lbl strong' text-anchor='middle' dominant-baseline='central'><tspan x='500' y='130'>Fin del control</tspan></text><polyline class='edge' points='250,172 250,202' marker-end='url(#ah)'/><text class='tag' x='258' y='188' text-anchor='start'>no</text><polygon class='dec' points='250,202.0 360.0,244 250,286.0 140.0,244'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='250' y='236'>¿Movimiento del</tspan><tspan x='250' y='252'>video &gt; 15?</tspan></text><polyline class='edge' points='360,244 410,244' marker-end='url(#ah)'/><text class='tag' x='368' y='236' text-anchor='start'>sí</text><rect class='proc' x='410.0' y='216.0' width='200' height='56' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='510' y='236'>x += sen(dirección)</tspan><tspan x='510' y='252'>× movimiento ÷ 3</tspan></text><polyline class='edge' points='510,272 510,304 250,304'/><polyline class='edge' points='250,286 250,322' marker-end='url(#ah)'/><text class='tag' x='242' y='302' text-anchor='end'>no</text><polygon class='dec' points='250,322.0 360.0,364 250,406.0 140.0,364'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='250' y='356'>¿Flecha izq.</tspan><tspan x='250' y='372'>o der.?</tspan></text><polyline class='edge' points='360,364 410,364' marker-end='url(#ah)'/><text class='tag' x='368' y='356' text-anchor='start'>sí</text><rect class='proc' x='410.0' y='341.0' width='200' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='510' y='364'>x ± 9</tspan></text><polyline class='edge' points='510,387 510,424 250,424'/><polyline class='edge' points='250,406 250,444' marker-end='url(#ah)'/><text class='tag' x='242' y='422' text-anchor='end'>no</text><rect class='proc' x='130.0' y='444.0' width='240' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='250' y='467'>Limitar x entre −210 y 210</tspan></text><polyline class='edge' points='130,467 60,467 60,130 140,130' marker-end='url(#ah)'/><text class='note' x='68' y='300' text-anchor='start'>repite cada</text><text class='note' x='68' y='316' text-anchor='start'>cuadro</text></svg></div>
+      <figcaption>Corre en paralelo con los globos durante todo el nivel. La cámara está encendida pero invisible: solo se usa para medir el movimiento.</figcaption>
+    </figure>
+    <figure id="bar">
+      <h2>Barra de progreso</h2>
+      <div class="scroll"><svg viewBox='0 0 300 370' role='img' aria-label='La barra de progreso se redibuja con gris, verde y rojo cada vez que un globo termina.'><defs><marker id='ah' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><rect class='term' x='50.0' y='9.0' width='200' height='54' rx='27.0'/><text class='lbl strong' text-anchor='middle' dominant-baseline='central'><tspan x='150' y='28'>Al recibir</tspan><tspan x='150' y='44'>«ActualizarBarra»</tspan></text><polyline class='edge' points='150,63 150,92' marker-end='url(#ah)'/><rect class='proc' x='40.0' y='92.0' width='220' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='150' y='115'>Borrar dibujo anterior</tspan></text><polyline class='edge' points='150,138 150,166' marker-end='url(#ah)'/><rect class='proc' x='40.0' y='166.0' width='220' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='150' y='189'>Gris: 300 px (50 × 6)</tspan></text><polyline class='edge' points='150,212 150,240' marker-end='url(#ah)'/><rect class='proc' x='40.0' y='240.0' width='220' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='150' y='263'>Verde: Cabeceados × 6 px</tspan></text><polyline class='edge' points='150,286 150,314' marker-end='url(#ah)'/><rect class='proc' x='40.0' y='314.0' width='220' height='46' rx='4'/><text class='lbl' text-anchor='middle' dominant-baseline='central'><tspan x='150' y='337'>Rojo: No cabeceados × 6 px</tspan></text></svg></div>
+      <figcaption>Se redibuja cada vez que un globo termina: 6 px por globo.</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <h2>Resumen en pasos</h2>
+    <ol class="steps">
+      <li>Al hacer clic en la bandera se muestra la portada y se pide el nombre de usuario.</li>
+      <li>Cada nivel reinicia los contadores y fija velocidad, tamaño e intervalo de los globos.</li>
+      <li>Caen 50 globos: tocar a Joaquín suma un cabeceado; llegar al piso suma un no cabeceado.</li>
+      <li>El puntaje es cabeceados menos no cabeceados, y la barra muestra el avance en verde y rojo.</li>
+      <li>Al terminar el nivel, el resultado entra ordenado al ranking y el juego pregunta si seguir.</li>
+      <li>Después del nivel 3 se puede jugar de nuevo con otro usuario, o terminar mostrando el ranking.</li>
+    </ol>
+  </figure>
+
+  <footer>JOAQUIN JUEGA · INFORMÁTICA EDUCATIVA II · Profesorado Superior de Informática</footer>
+</div>
+
+</body></html>

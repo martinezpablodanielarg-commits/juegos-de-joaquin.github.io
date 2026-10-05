@@ -1,0 +1,323 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Flujo de El Joaquín Pregunta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<style>
+:root{
+  --bg:#EEF2F8; --panel:#FFFFFF; --ink:#15213A; --muted:#55627B; --line:#D5DDEA; --accent:#1E4E8C; --accent-2:#E65100; --gold:#FFC107;
+  --grid:#E3E8F1; --edge:#44536E;
+  --t-f:#E3F4E8; --t-s:#2E7D32; --p-f:#E6EEFA; --p-s:#1E4E8C; --io-f:#EFE8FB; --io-s:#6F4BC2;
+  --d-f:#FFF1D6; --d-s:#D98200; --s-f:#FDE6EC; --s-s:#D0405F; --c-f:#FFFFFF; --c-s:#44536E;
+  --si:#2E7D32; --no:#C62828;
+  --shadow:0 1px 2px rgba(21,33,58,.06),0 6px 18px rgba(21,33,58,.06);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  color-scheme:dark; --bg:#0D1628; --panel:#152139; --ink:#E7EDF7; --muted:#9DAAC2; --line:#26344F; --accent:#86B3F2; --accent-2:#FFA15C;
+  --grid:#1B2944; --edge:#A9B6CC;
+  --t-f:#17352A; --t-s:#5FCB86; --p-f:#172D4E; --p-s:#7FAEF0; --io-f:#2A2350; --io-s:#B39BF2;
+  --d-f:#3A2C12; --d-s:#F2B347; --s-f:#3D1C29; --s-s:#F07C98; --c-f:#152139; --c-s:#A9B6CC; --si:#6BD08F; --no:#FF7B7B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25);
+} }
+:root[data-theme="dark"]{
+  color-scheme:dark; --bg:#0D1628; --panel:#152139; --ink:#E7EDF7; --muted:#9DAAC2; --line:#26344F; --accent:#86B3F2; --accent-2:#FFA15C;
+  --grid:#1B2944; --edge:#A9B6CC;
+  --t-f:#17352A; --t-s:#5FCB86; --p-f:#172D4E; --p-s:#7FAEF0; --io-f:#2A2350; --io-s:#B39BF2;
+  --d-f:#3A2C12; --d-s:#F2B347; --s-f:#3D1C29; --s-s:#F07C98; --c-f:#152139; --c-s:#A9B6CC; --si:#6BD08F; --no:#FF7B7B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito",system-ui,sans-serif;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,.num{font-family:"Fredoka","Trebuchet MS",sans-serif}
+h1,h2{margin:0;text-wrap:balance}
+.hero{padding-block:40px 24px;display:grid;gap:14px}
+.credit{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.credit b{color:var(--accent)} .credit .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.04;font-weight:700}
+h1 span{color:var(--accent-2)}
+.lede{max-width:68ch;margin:0;color:var(--muted);font-size:1.06rem}
+.lede b{color:var(--ink)}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
+.nav a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 6px;font-weight:600;font-size:.92rem}
+.nav a:hover,.nav a:focus-visible{border-color:var(--accent);outline:none}
+.num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--accent);color:var(--panel);font-weight:700;font-size:.85rem}
+.num.big{width:42px;height:42px;border-radius:12px;font-size:1.25rem;flex:none}
+.legend{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:22px}
+.legend h2{font-size:1.15rem;margin-bottom:10px}
+.legend ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 20px}
+.legend li{display:flex;gap:12px;align-items:center}
+.legend li div{display:grid;line-height:1.3}
+.legend b{font-size:.95rem} .legend span{font-size:.84rem;color:var(--muted)}
+.legend .flow{flex:none}
+.calls{margin:14px 0 0;font-size:.9rem;color:var(--muted)}
+.calls b{color:var(--ink)}
+.cards{display:grid;gap:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:16px}
+.card header{display:flex;gap:14px;align-items:center;padding:18px 22px 6px}
+.eyebrow{margin:0;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card h2{font-size:1.45rem;line-height:1.15}
+.cap{margin:0;padding:4px 22px 16px 78px;color:var(--muted);max-width:90ch}
+.canvas{overflow-x:auto;border-top:1px solid var(--line);background:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;padding:18px 12px;display:flex}
+.canvas:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.canvas svg{margin:0 auto;flex:none}
+/* símbolos */
+.flow .n rect,.flow .n path,.flow .n circle{stroke-width:2.2}
+.n-term>rect{fill:var(--t-f);stroke:var(--t-s)}
+.n-proc>rect{fill:var(--p-f);stroke:var(--p-s)}
+.n-sub>rect{fill:var(--s-f);stroke:var(--s-s)} .n-sub .inner{stroke:var(--s-s);fill:none;stroke-width:1.6}
+.n-io>path{fill:var(--io-f);stroke:var(--io-s)}
+.n-dec>path{fill:var(--d-f);stroke:var(--d-s)}
+.n-conn>circle{fill:var(--c-f);stroke:var(--c-s)}
+.flow text{fill:var(--ink);font:600 13.5px "Nunito",system-ui,sans-serif}
+.flow tspan.b{font-weight:800;letter-spacing:.02em}
+.edge{fill:none;stroke:var(--edge);stroke-width:1.8;stroke-linejoin:round}
+.ah{fill:var(--edge)}
+.flow text.lab{font:800 12.5px "Nunito",sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:4px}
+.flow text.lab.si{fill:var(--si)} .flow text.lab.no{fill:var(--no)}
+footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+@media (max-width:860px){ .legend ul{grid-template-columns:repeat(2,minmax(0,1fr))} .cap{padding-left:22px} }
+@media (max-width:520px){ .legend ul{grid-template-columns:1fr} .card header,.cap{padding-inline:16px} }
+</style>
+<div class="wrap">
+<header class="hero">
+  <div class="credit"><span class="dot"></span><b>Informática Educativa II</b><span>Profesorado Superior de Informática</span></div>
+  <h1>El Joaquín <span>Pregunta</span><br>en diagramas de flujo</h1>
+  <p class="lede">La lógica completa del juego con los símbolos normalizados de diagramación. El <b>programa principal</b> llama a los subprocesos <b>jugar nivel</b> y <b>guardar en ranking</b>, y jugar nivel a su vez llama a <b>preparar preguntas</b>. Cada subproceso tiene su propio diagrama.</p>
+  <nav class="nav" aria-label="Diagramas"><a href="#principal"><span class="num">1</span>Programa principal</a><a href="#jugar"><span class="num">2</span>Jugar nivel</a><a href="#preparar"><span class="num">3</span>Preparar preguntas</a><a href="#ranking"><span class="num">4</span>Guardar en ranking</a><a href="#eventos"><span class="num">5</span>Respuestas y barra de progreso</a></nav>
+</header>
+<section class="legend" aria-labelledby="sim">
+  <h2 id="sim">Símbolos</h2>
+  <ul><li><svg class="flow" viewBox="0 0 64 34" width="64" height="34" aria-hidden="true"><g class="n n-term"><rect x="2" y="2" width="60" height="30" rx="15.0"/></g></svg><div><b>Inicio / Fin</b><span>Terminal: dónde empieza y termina un diagrama.</span></div></li><li><svg class="flow" viewBox="0 0 64 34" width="64" height="34" aria-hidden="true"><g class="n n-proc"><rect x="2" y="2" width="60" height="30" rx="3"/></g></svg><div><b>Proceso</b><span>Una acción: dar valor a variables, sumar, borrar, dibujar.</span></div></li><li><svg class="flow" viewBox="0 0 64 34" width="64" height="34" aria-hidden="true"><g class="n n-io"><path d="M12 2H62L52 32H2Z"/></g></svg><div><b>Entrada / Salida</b><span>Lo que se lee del jugador (preguntar) o se le muestra (decir).</span></div></li><li><svg class="flow" viewBox="0 0 64 34" width="64" height="34" aria-hidden="true"><g class="n n-dec"><path d="M32.0 2L62 17.0L32.0 32L2 17.0Z"/></g></svg><div><b>Decisión</b><span>Una condición con dos salidas: Sí o No.</span></div></li><li><svg class="flow" viewBox="0 0 64 34" width="64" height="34" aria-hidden="true"><g class="n n-sub"><rect x="2" y="2" width="60" height="30" rx="3"/><path d="M10 2V32M54 2V32" class="inner"/></g></svg><div><b>Subproceso</b><span>Un bloque propio (Mis bloques) que tiene su propio diagrama.</span></div></li><li><svg class="flow" viewBox="0 0 64 34" width="64" height="34" aria-hidden="true"><g class="n n-conn"><circle cx="32.0" cy="17.0" r="8"/></g></svg><div><b>Conector</b><span>Une varios caminos en uno.</span></div></li></ul>
+  <p class="calls">Las etiquetas <b style="color:var(--si)">Sí</b> y <b style="color:var(--no)">No</b> indican la salida de cada decisión. Las flechas que suben marcan un <b>bucle</b> (repetición).</p>
+</section>
+<div class="cards"><section class="card" id="principal">
+  <header><span class="num big">1</span><div><p class="eyebrow">Objeto Joaquín · al hacer clic en la bandera verde</p><h2>Programa principal</h2></div></header>
+  <p class="cap">Login con validación, elección del nivel inicial y el ciclo de niveles: después de cada nivel se pregunta si se sigue con el siguiente, hasta el nivel 3.</p>
+  <div class="canvas" tabindex="0"><svg class="flow" viewBox="0 0 780 1450.4" width="780" height="1450.4" role="img" aria-label="Diagrama de flujo: Programa principal">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<path d="M330.0 73.0 L330.0 117.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 171.0 L330.0 213.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 267.0 L330.0 309.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 363.0 L330.0 392.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 555.0 L330.0 584.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 747.0 L330.0 789.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 843.0 L330.0 872.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 1035.0 L330.0 1064.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 1227.0 L330.0 1269.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 1323.0 L330.0 1369.0" class="edge" marker-end="url(#arr)"/>
+<path d="M435.0 432.0 L477.0 432.0" class="edge" marker-end="url(#arr)"/>
+<text x="451.0" y="424.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M590.0 405.0 L590.0 336.0 L463.0 336.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 472.0 L330.0 501.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="490.0" class="lab no" text-anchor="middle">No</text>
+<path d="M225.0 624.0 L180.0 624.0" class="edge" marker-end="url(#arr)"/>
+<text x="209.0" y="616.0" class="lab no" text-anchor="middle">No</text>
+<path d="M435.0 624.0 L495.0 624.0" class="edge" marker-end="url(#arr)"/>
+<text x="451.0" y="616.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M105.0 651.0 L105.0 671.0 L322.0 671.0" class="edge" marker-end="url(#arr)"/>
+<path d="M590.0 651.0 L590.0 671.0 L338.0 671.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 679.0 L330.0 693.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 952.0 L330.0 981.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="970.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M435.0 912.0 L487.0 912.0" class="edge" marker-end="url(#arr)"/>
+<text x="451.0" y="904.0" class="lab no" text-anchor="middle">No</text>
+<path d="M590.0 939.0 L590.0 1200.0 L455.0 1200.0" class="edge" marker-end="url(#arr)"/>
+<path d="M215.0 1104.0 L190.0 1104.0" class="edge" marker-end="url(#arr)"/>
+<text x="199.0" y="1096.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M105.0 1077.0 L105.0 816.0 L205.0 816.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 1144.0 L330.0 1173.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="1162.0" class="lab no" text-anchor="middle">No</text>
+<g class="n n-term"><rect x="215.0" y="23.0" width="230" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="330" y="45.0" class=b>INICIO</tspan><tspan x="330" y="61.0">clic en la bandera verde</tspan></text></g>
+<g class="n n-proc"><rect x="195.0" y="117.0" width="270" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="141.0">Inicializar: pausa = 4 · limite = 20</tspan><tspan x="330" y="157.0">esperando = 0 · ocultar monitores</tspan></text></g>
+<g class="n n-io"><path d="M194.0 213.0 H480.0 L466.0 267.0 H180.0 Z"/><text text-anchor="middle"><tspan x="330" y="237.0">Mostrar portada, RANKING TOP 10</tspan><tspan x="330" y="253.0">y créditos de la materia</tspan></text></g>
+<g class="n n-io"><path d="M204.0 309.0 H470.0 L456.0 363.0 H190.0 Z"/><text text-anchor="middle"><tspan x="330" y="333.0">Leer nombre de usuario</tspan><tspan x="330" y="349.0">→ Jugador</tspan></text></g>
+<g class="n n-dec"><path d="M330 392.0 L435.0 432 L330 472.0 L225.0 432 Z"/><text text-anchor="middle"><tspan x="330" y="429.0">¿Jugador</tspan><tspan x="330" y="445.0">está vacío?</tspan></text></g>
+<g class="n n-io"><path d="M484.0 405.0 H710.0 L696.0 459.0 H470.0 Z"/><text text-anchor="middle"><tspan x="590" y="429.0">Aviso: «el usuario no</tspan><tspan x="590" y="445.0">puede quedar vacío»</tspan></text></g>
+<g class="n n-io"><path d="M204.0 501.0 H470.0 L456.0 555.0 H190.0 Z"/><text text-anchor="middle"><tspan x="330" y="525.0">Bienvenida y leer nivel</tspan><tspan x="330" y="541.0">inicial (1, 2 o 3)</tspan></text></g>
+<g class="n n-dec"><path d="M330 584.0 L435.0 624 L330 664.0 L225.0 624 Z"/><text text-anchor="middle"><tspan x="330" y="621.0">¿Respuesta</tspan><tspan x="330" y="637.0">es 2 o 3?</tspan></text></g>
+<g class="n n-proc"><rect x="30.0" y="597.0" width="150" height="54" rx="4"/><text text-anchor="middle"><tspan x="105" y="629.0">nivel = 1</tspan></text></g>
+<g class="n n-proc"><rect x="495.0" y="597.0" width="190" height="54" rx="4"/><text text-anchor="middle"><tspan x="590" y="629.0">nivel = respuesta</tspan></text></g>
+<g class="n n-proc"><rect x="195.0" y="693.0" width="270" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="717.0">Puntaje total = 0 · seguir = sí</tspan><tspan x="330" y="733.0">mostrar monitores</tspan></text></g>
+<g class="n n-sub"><rect x="205.0" y="789.0" width="250" height="54" rx="4"/><path d="M216.0 789.0 V843.0 M444.0 789.0 V843.0" class="inner"/><text text-anchor="middle"><tspan x="330" y="813.0" class=b>JUGAR NIVEL</tspan><tspan x="330" y="829.0">(diagrama 2)</tspan></text></g>
+<g class="n n-dec"><path d="M330 872.0 L435.0 912 L330 952.0 L225.0 912 Z"/><text text-anchor="middle"><tspan x="330" y="917.0">¿nivel &lt; 3?</tspan></text></g>
+<g class="n n-io"><path d="M494.0 885.0 H700.0 L686.0 939.0 H480.0 Z"/><text text-anchor="middle"><tspan x="590" y="909.0">«¡Completaste los</tspan><tspan x="590" y="925.0">3 niveles!»</tspan></text></g>
+<g class="n n-io"><path d="M204.0 981.0 H470.0 L456.0 1035.0 H190.0 Z"/><text text-anchor="middle"><tspan x="330" y="1005.0">Preguntar: ¿seguir con</tspan><tspan x="330" y="1021.0">el nivel siguiente?</tspan></text></g>
+<g class="n n-dec"><path d="M330 1064.0 L445.0 1104 L330 1144.0 L215.0 1104 Z"/><text text-anchor="middle"><tspan x="330" y="1101.0">¿La respuesta</tspan><tspan x="330" y="1117.0">empieza con «s»?</tspan></text></g>
+<g class="n n-proc"><rect x="20.0" y="1077.0" width="170" height="54" rx="4"/><text text-anchor="middle"><tspan x="105" y="1109.0">nivel = nivel + 1</tspan></text></g>
+<g class="n n-sub"><rect x="205.0" y="1173.0" width="250" height="54" rx="4"/><path d="M216.0 1173.0 V1227.0 M444.0 1173.0 V1227.0" class="inner"/><text text-anchor="middle"><tspan x="330" y="1197.0" class=b>GUARDAR EN RANKING</tspan><tspan x="330" y="1213.0">(diagrama 4)</tspan></text></g>
+<g class="n n-io"><path d="M194.0 1269.0 H480.0 L466.0 1323.0 H180.0 Z"/><text text-anchor="middle"><tspan x="330" y="1293.0">Mostrar fondo Ranking, TOP 10</tspan><tspan x="330" y="1309.0">y puntaje total del jugador</tspan></text></g>
+<g class="n n-term"><rect x="215.0" y="1369.0" width="230" height="46" rx="23.0"/><text text-anchor="middle"><tspan x="330" y="1397.0" class=b>FIN</tspan></text></g>
+<g class="n n-conn"><circle cx="330" cy="671" r="8.0"/><text text-anchor="middle"></text></g>
+</svg></div>
+</section><section class="card" id="jugar">
+  <header><span class="num big">2</span><div><p class="eyebrow">Bloque propio de Joaquín</p><h2>Jugar nivel</h2></div></header>
+  <p class="cap">Las 10 preguntas del nivel. Cada una tiene una cuenta regresiva de 20 segundos: si no hay respuesta a tiempo, cuenta como error (−1). Todas las respuestas terminan con su justificación.</p>
+  <div class="canvas" tabindex="0"><svg class="flow" viewBox="0 0 1010 1344.8000000000002" width="1010" height="1344.8000000000002" role="img" aria-label="Diagrama de flujo: Jugar nivel">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<path d="M400.0 73.0 L400.0 117.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 171.0 L400.0 213.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 267.0 L400.0 309.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 363.0 L400.0 392.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 555.0 L400.0 597.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 651.0 L400.0 693.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 747.0 L400.0 796.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 959.0 L400.0 988.0" class="edge" marker-end="url(#arr)"/>
+<path d="M170.0 1151.0 L170.0 1193.0" class="edge" marker-end="url(#arr)"/>
+<path d="M640.0 1151.0 L640.0 1193.0" class="edge" marker-end="url(#arr)"/>
+<path d="M700.0 459.0 L700.0 503.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 472.0 L400.0 501.0" class="edge" marker-end="url(#arr)"/>
+<text x="414.0" y="490.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M505.0 432.0 L562.0 432.0" class="edge" marker-end="url(#arr)"/>
+<text x="521.0" y="424.0" class="lab no" text-anchor="middle">No</text>
+<path d="M400.0 876.0 L400.0 905.0" class="edge" marker-end="url(#arr)"/>
+<text x="414.0" y="894.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M510.0 836.0 L550.0 836.0" class="edge" marker-end="url(#arr)"/>
+<text x="526.0" y="828.0" class="lab no" text-anchor="middle">No</text>
+<path d="M730.0 836.0 L790.0 836.0" class="edge" marker-end="url(#arr)"/>
+<text x="746.0" y="828.0" class="lab no" text-anchor="middle">No</text>
+<path d="M880.0 809.0 L880.0 780.0 L403.0 780.0" class="edge" marker-end="url(#arr)"/>
+<path d="M640.0 876.0 L640.0 905.0" class="edge" marker-end="url(#arr)"/>
+<text x="654.0" y="894.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M550.0 932.0 L535.0 932.0" class="edge" marker-end="url(#arr)"/>
+<path d="M285.0 1028.0 L170.0 1028.0 L170.0 1097.0" class="edge" marker-end="url(#arr)"/>
+<text x="269.0" y="1020.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M515.0 1028.0 L640.0 1028.0 L640.0 1097.0" class="edge" marker-end="url(#arr)"/>
+<text x="531.0" y="1020.0" class="lab no" text-anchor="middle">No</text>
+<path d="M170.0 1247.0 L170.0 1312.0 L392.0 1312.0" class="edge" marker-end="url(#arr)"/>
+<path d="M640.0 1247.0 L640.0 1312.0 L408.0 1312.0" class="edge" marker-end="url(#arr)"/>
+<path d="M400.0 1320.0 L400.0 1338.0 L22.0 1338.0 L22.0 432.0 L295.0 432.0" class="edge" marker-end="url(#arr)"/>
+<g class="n n-term"><rect x="285.0" y="23.0" width="230" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="400" y="45.0" class=b>INICIO</tspan><tspan x="400" y="61.0">jugar nivel</tspan></text></g>
+<g class="n n-proc"><rect x="265.0" y="117.0" width="270" height="54" rx="4"/><text text-anchor="middle"><tspan x="400" y="141.0">Fondo y Sección</tspan><tspan x="400" y="157.0">según el nivel</tspan></text></g>
+<g class="n n-sub"><rect x="275.0" y="213.0" width="250" height="54" rx="4"/><path d="M286.0 213.0 V267.0 M514.0 213.0 V267.0" class="inner"/><text text-anchor="middle"><tspan x="400" y="237.0" class=b>PREPARAR PREGUNTAS</tspan><tspan x="400" y="253.0">(diagrama 3)</tspan></text></g>
+<g class="n n-proc"><rect x="250.0" y="309.0" width="300" height="54" rx="4"/><text text-anchor="middle"><tspan x="400" y="333.0">num = 0 · puntajes y contadores = 0</tspan><tspan x="400" y="349.0">limpiar barra de progreso</tspan></text></g>
+<g class="n n-dec"><path d="M400 392.0 L505.0 432 L400 472.0 L295.0 432 Z"/><text text-anchor="middle"><tspan x="400" y="437.0">¿num &lt; 10?</tspan></text></g>
+<g class="n n-io"><path d="M569.0 405.0 H845.0 L831.0 459.0 H555.0 Z"/><text text-anchor="middle"><tspan x="700" y="429.0">Resumen del nivel: correctas,</tspan><tspan x="700" y="445.0">incorrectas y sin responder</tspan></text></g>
+<g class="n n-term"><rect x="575.0" y="503.0" width="250" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="700" y="525.0" class=b>FIN</tspan><tspan x="700" y="541.0">volver al programa principal</tspan></text></g>
+<g class="n n-proc"><rect x="250.0" y="501.0" width="300" height="54" rx="4"/><text text-anchor="middle"><tspan x="400" y="525.0">num = num + 1 · idx = partida[num]</tspan><tspan x="400" y="541.0">respuesta = vacía</tspan></text></g>
+<g class="n n-io"><path d="M249.0 597.0 H565.0 L551.0 651.0 H235.0 Z"/><text text-anchor="middle"><tspan x="400" y="621.0">Mostrar [categoría] Pregunta num de 10</tspan><tspan x="400" y="637.0">y el texto de la pregunta</tspan></text></g>
+<g class="n n-proc"><rect x="250.0" y="693.0" width="300" height="54" rx="4"/><text text-anchor="middle"><tspan x="400" y="717.0">Reiniciar cronómetro · Tiempo = 20</tspan><tspan x="400" y="733.0">mostrar botones · esperando = 1</tspan></text></g>
+<g class="n n-dec"><path d="M400 796.0 L510.0 836 L400 876.0 L290.0 836 Z"/><text text-anchor="middle"><tspan x="400" y="833.0">¿Respondió?</tspan><tspan x="400" y="849.0">(botón o tecla S / N)</tspan></text></g>
+<g class="n n-dec"><path d="M640 796.0 L730.0 836 L640 876.0 L550.0 836 Z"/><text text-anchor="middle"><tspan x="640" y="833.0">¿Cronómetro</tspan><tspan x="640" y="849.0">&gt; 20 s?</tspan></text></g>
+<g class="n n-proc"><rect x="790.0" y="809.0" width="180" height="54" rx="4"/><text text-anchor="middle"><tspan x="880" y="833.0">Tiempo =</tspan><tspan x="880" y="849.0">techo(20 − crono)</tspan></text></g>
+<g class="n n-proc"><rect x="550.0" y="905.0" width="180" height="54" rx="4"/><text text-anchor="middle"><tspan x="640" y="929.0">respuesta =</tspan><tspan x="640" y="945.0">SIN RESPUESTA</tspan></text></g>
+<g class="n n-proc"><rect x="265.0" y="905.0" width="270" height="54" rx="4"/><text text-anchor="middle"><tspan x="400" y="929.0">esperando = 0</tspan><tspan x="400" y="945.0">ocultar botones y Tiempo</tspan></text></g>
+<g class="n n-dec"><path d="M400 988.0 L515.0 1028 L400 1068.0 L285.0 1028 Z"/><text text-anchor="middle"><tspan x="400" y="1025.0">¿respuesta =</tspan><tspan x="400" y="1041.0">respuesta correcta?</tspan></text></g>
+<g class="n n-proc"><rect x="40.0" y="1097.0" width="260" height="54" rx="4"/><text text-anchor="middle"><tspan x="170" y="1121.0">+1 puntaje nivel y total</tspan><tspan x="170" y="1137.0">casilla verde · sonido acierto</tspan></text></g>
+<g class="n n-proc"><rect x="510.0" y="1097.0" width="260" height="54" rx="4"/><text text-anchor="middle"><tspan x="640" y="1121.0">−1 puntaje nivel y total</tspan><tspan x="640" y="1137.0">casilla roja · sonido error</tspan></text></g>
+<g class="n n-io"><path d="M49.0 1193.0 H305.0 L291.0 1247.0 H35.0 Z"/><text text-anchor="middle"><tspan x="170" y="1217.0">«¡CORRECTO!» + respuesta</tspan><tspan x="170" y="1233.0">+ justificación</tspan></text></g>
+<g class="n n-io"><path d="M489.0 1193.0 H805.0 L791.0 1247.0 H475.0 Z"/><text text-anchor="middle"><tspan x="640" y="1217.0">«¡INCORRECTO!» o «¡SE ACABÓ EL</tspan><tspan x="640" y="1233.0">TIEMPO!» + respuesta + justificación</tspan></text></g>
+<g class="n n-conn"><circle cx="400" cy="1312" r="8.0"/><text text-anchor="middle"></text></g>
+</svg></div>
+</section><section class="card" id="preparar">
+  <header><span class="num big">3</span><div><p class="eyebrow">Bloque propio de Joaquín · sin refrescar pantalla</p><h2>Preparar preguntas</h2></div></header>
+  <p class="cap">Arma la lista partida: primero sortea una categoría y después una pregunta de esa categoría. Nunca repite preguntas.</p>
+  <div class="canvas" tabindex="0"><svg class="flow" viewBox="0 0 900 1162.4" width="900" height="1162.4" role="img" aria-label="Diagrama de flujo: Preparar preguntas">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<path d="M330.0 73.0 L330.0 117.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 171.0 L330.0 200.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 555.0 L330.0 584.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 747.0 L330.0 789.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 843.0 L330.0 885.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 939.0 L330.0 968.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 280.0 L330.0 296.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="298.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M440.0 336.0 L500.0 336.0" class="edge" marker-end="url(#arr)"/>
+<text x="456.0" y="328.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M620.0 363.0 L620.0 432.0 L410.0 432.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 376.0 L330.0 405.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="394.0" class="lab no" text-anchor="middle">No</text>
+<path d="M250.0 432.0 L40.0 432.0 L40.0 240.0 L225.0 240.0" class="edge" marker-end="url(#arr)"/>
+<path d="M435.0 240.0 L850.0 240.0 L850.0 528.0 L470.0 528.0" class="edge" marker-end="url(#arr)"/>
+<text x="451.0" y="232.0" class="lab no" text-anchor="middle">No</text>
+<path d="M435.0 624.0 L500.0 624.0" class="edge" marker-end="url(#arr)"/>
+<text x="451.0" y="616.0" class="lab no" text-anchor="middle">No</text>
+<path d="M330.0 664.0 L330.0 693.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="682.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M440.0 1008.0 L510.0 1008.0" class="edge" marker-end="url(#arr)"/>
+<text x="456.0" y="1000.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M620.0 1035.0 L620.0 1104.0 L460.0 1104.0" class="edge" marker-end="url(#arr)"/>
+<path d="M330.0 1048.0 L330.0 1077.0" class="edge" marker-end="url(#arr)"/>
+<text x="344.0" y="1066.0" class="lab no" text-anchor="middle">No</text>
+<path d="M200.0 1104.0 L40.0 1104.0 L40.0 624.0 L225.0 624.0" class="edge" marker-end="url(#arr)"/>
+<g class="n n-term"><rect x="215.0" y="23.0" width="230" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="330" y="45.0" class=b>INICIO</tspan><tspan x="330" y="61.0">preparar preguntas</tspan></text></g>
+<g class="n n-proc"><rect x="180.0" y="117.0" width="300" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="141.0">Vaciar pool, categorias y partida</tspan><tspan x="330" y="157.0">i = 1</tspan></text></g>
+<g class="n n-dec"><path d="M330 200.0 L435.0 240 L330 280.0 L225.0 240 Z"/><text text-anchor="middle"><tspan x="330" y="237.0">¿i ≤ 75?</tspan><tspan x="330" y="253.0">(banco completo)</tspan></text></g>
+<g class="n n-dec"><path d="M330 296.0 L440.0 336 L330 376.0 L220.0 336 Z"/><text text-anchor="middle"><tspan x="330" y="333.0">¿P_nivel[i] =</tspan><tspan x="330" y="349.0">nivel actual?</tspan></text></g>
+<g class="n n-proc"><rect x="500.0" y="309.0" width="240" height="54" rx="4"/><text text-anchor="middle"><tspan x="620" y="333.0">Agregar i a pool y su</tspan><tspan x="620" y="349.0">categoría (si no está)</tspan></text></g>
+<g class="n n-proc"><rect x="250.0" y="405.0" width="160" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="437.0">i = i + 1</tspan></text></g>
+<g class="n n-proc"><rect x="190.0" y="501.0" width="280" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="533.0">vuelta = 0  (repetir 10 veces)</tspan></text></g>
+<g class="n n-dec"><path d="M330 584.0 L435.0 624 L330 664.0 L225.0 624 Z"/><text text-anchor="middle"><tspan x="330" y="629.0">¿vuelta &lt; 10?</tspan></text></g>
+<g class="n n-term"><rect x="500.0" y="599.0" width="240" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="620" y="621.0" class=b>FIN</tspan><tspan x="620" y="637.0">partida tiene 10 preguntas</tspan></text></g>
+<g class="n n-proc"><rect x="200.0" y="693.0" width="260" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="725.0">c = una categoría al azar</tspan></text></g>
+<g class="n n-proc"><rect x="185.0" y="789.0" width="290" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="813.0">candidatas = preguntas del pool</tspan><tspan x="330" y="829.0">con la categoría c</tspan></text></g>
+<g class="n n-proc"><rect x="185.0" y="885.0" width="290" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="909.0">j = una candidata al azar</tspan><tspan x="330" y="925.0">agregar pool[j] a partida</tspan></text></g>
+<g class="n n-dec"><path d="M330 968.0 L440.0 1008 L330 1048.0 L220.0 1008 Z"/><text text-anchor="middle"><tspan x="330" y="1005.0">¿Era la última</tspan><tspan x="330" y="1021.0">de la categoría?</tspan></text></g>
+<g class="n n-proc"><rect x="510.0" y="981.0" width="220" height="54" rx="4"/><text text-anchor="middle"><tspan x="620" y="1005.0">Quitar la categoría c</tspan><tspan x="620" y="1021.0">del sorteo</tspan></text></g>
+<g class="n n-proc"><rect x="200.0" y="1077.0" width="260" height="54" rx="4"/><text text-anchor="middle"><tspan x="330" y="1101.0">Quitar j del pool</tspan><tspan x="330" y="1117.0">vuelta = vuelta + 1</tspan></text></g>
+</svg></div>
+</section><section class="card" id="ranking">
+  <header><span class="num big">4</span><div><p class="eyebrow">Bloque propio de Joaquín · sin refrescar pantalla</p><h2>Guardar en ranking</h2></div></header>
+  <p class="cap">Busca el lugar del jugador para que el ranking quede ordenado de mayor a menor y conserva solo los 10 mejores.</p>
+  <div class="canvas" tabindex="0"><svg class="flow" viewBox="0 0 760 682.4000000000001" width="760" height="682.4000000000001" role="img" aria-label="Diagrama de flujo: Guardar en ranking">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<path d="M380.0 73.0 L380.0 117.0" class="edge" marker-end="url(#arr)"/>
+<path d="M380.0 171.0 L380.0 202.0" class="edge" marker-end="url(#arr)"/>
+<path d="M380.0 379.0 L380.0 408.0" class="edge" marker-end="url(#arr)"/>
+<path d="M380.0 571.0 L380.0 617.0" class="edge" marker-end="url(#arr)"/>
+<path d="M215.0 248.0 L170.0 248.0" class="edge" marker-end="url(#arr)"/>
+<text x="199.0" y="240.0" class="lab no" text-anchor="middle">No</text>
+<path d="M95.0 221.0 L95.0 188.0 L377.0 188.0" class="edge" marker-end="url(#arr)"/>
+<path d="M380.0 294.0 L380.0 325.0" class="edge" marker-end="url(#arr)"/>
+<text x="394.0" y="312.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M485.0 448.0 L535.0 448.0" class="edge" marker-end="url(#arr)"/>
+<text x="501.0" y="440.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M630.0 475.0 L630.0 544.0 L515.0 544.0" class="edge" marker-end="url(#arr)"/>
+<path d="M380.0 488.0 L380.0 517.0" class="edge" marker-end="url(#arr)"/>
+<text x="394.0" y="506.0" class="lab no" text-anchor="middle">No</text>
+<g class="n n-term"><rect x="265.0" y="23.0" width="230" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="380" y="45.0" class=b>INICIO</tspan><tspan x="380" y="61.0">guardar en ranking</tspan></text></g>
+<g class="n n-proc"><rect x="300.0" y="117.0" width="160" height="54" rx="4"/><text text-anchor="middle"><tspan x="380" y="149.0">pos = 1</tspan></text></g>
+<g class="n n-dec"><path d="M380 202.0 L545.0 248 L380 294.0 L215.0 248 Z"/><text text-anchor="middle"><tspan x="380" y="245.0">¿pos &gt; largo del ranking o</tspan><tspan x="380" y="261.0">Puntaje total &gt; rank_puntos[pos]?</tspan></text></g>
+<g class="n n-proc"><rect x="20.0" y="221.0" width="150" height="54" rx="4"/><text text-anchor="middle"><tspan x="95" y="253.0">pos = pos + 1</tspan></text></g>
+<g class="n n-proc"><rect x="230.0" y="325.0" width="300" height="54" rx="4"/><text text-anchor="middle"><tspan x="380" y="349.0">Insertar Jugador y Puntaje total</tspan><tspan x="380" y="365.0">en la posición pos</tspan></text></g>
+<g class="n n-dec"><path d="M380 408.0 L485.0 448 L380 488.0 L275.0 448 Z"/><text text-anchor="middle"><tspan x="380" y="445.0">¿Hay más</tspan><tspan x="380" y="461.0">de 10?</tspan></text></g>
+<g class="n n-proc"><rect x="535.0" y="421.0" width="190" height="54" rx="4"/><text text-anchor="middle"><tspan x="630" y="453.0">Borrar el puesto 11</tspan></text></g>
+<g class="n n-sub"><rect x="245.0" y="517.0" width="270" height="54" rx="4"/><path d="M256.0 517.0 V571.0 M504.0 517.0 V571.0" class="inner"/><text text-anchor="middle"><tspan x="380" y="541.0" class=b>MOSTRAR RANKING</tspan><tspan x="380" y="557.0">rearmar la lista visible</tspan></text></g>
+<g class="n n-term"><rect x="265.0" y="617.0" width="230" height="46" rx="23.0"/><text text-anchor="middle"><tspan x="380" y="645.0" class=b>FIN</tspan></text></g>
+</svg></div>
+</section><section class="card" id="eventos">
+  <header><span class="num big">5</span><div><p class="eyebrow">Botones, Escenario y objeto Barra</p><h2>Respuestas y barra de progreso</h2></div></header>
+  <p class="cap">Scripts que trabajan en paralelo con Joaquín: registran la respuesta solo si Joaquín la está esperando, y pintan la barra verde o roja.</p>
+  <div class="canvas" tabindex="0"><svg class="flow" viewBox="0 0 900 490.40000000000003" width="900" height="490.40000000000003" role="img" aria-label="Diagrama de flujo: Respuestas y barra de progreso">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<path d="M190.0 73.0 L190.0 110.0" class="edge" marker-end="url(#arr)"/>
+<path d="M190.0 190.0 L190.0 219.0" class="edge" marker-end="url(#arr)"/>
+<text x="204.0" y="208.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M290.0 150.0 L390.0 150.0 L390.0 219.0" class="edge" marker-end="url(#arr)"/>
+<text x="306.0" y="142.0" class="lab no" text-anchor="middle">No</text>
+<path d="M190.0 273.0 L190.0 319.0" class="edge" marker-end="url(#arr)"/>
+<path d="M390.0 273.0 L390.0 342.0 L260.0 342.0" class="edge" marker-end="url(#arr)"/>
+<path d="M680.0 73.0 L680.0 110.0" class="edge" marker-end="url(#arr)"/>
+<path d="M585.0 150.0 L565.0 150.0 L565.0 219.0" class="edge" marker-end="url(#arr)"/>
+<text x="569.0" y="142.0" class="lab si" text-anchor="middle">Sí</text>
+<path d="M775.0 150.0 L795.0 150.0 L795.0 219.0" class="edge" marker-end="url(#arr)"/>
+<text x="791.0" y="142.0" class="lab no" text-anchor="middle">No</text>
+<path d="M565.0 273.0 L565.0 305.0 L676.0 305.0 L680.0 323.0" class="edge" marker-end="url(#arr)"/>
+<path d="M795.0 273.0 L795.0 305.0 L684.0 305.0 L680.0 323.0" class="edge" marker-end="url(#arr)"/>
+<path d="M680.0 377.0 L680.0 423.0" class="edge" marker-end="url(#arr)"/>
+<g class="n n-term"><rect x="70.0" y="23.0" width="240" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="190" y="45.0" class=b>Clic en botón SÍ / NO</tspan><tspan x="190" y="61.0">o tecla S / N</tspan></text></g>
+<g class="n n-dec"><path d="M190 110.0 L290.0 150 L190 190.0 L90.0 150 Z"/><text text-anchor="middle"><tspan x="190" y="155.0">¿esperando = 1?</tspan></text></g>
+<g class="n n-proc"><rect x="305.0" y="219.0" width="170" height="54" rx="4"/><text text-anchor="middle"><tspan x="390" y="243.0">Se ignora</tspan><tspan x="390" y="259.0">(fuera de turno)</tspan></text></g>
+<g class="n n-proc"><rect x="80.0" y="219.0" width="220" height="54" rx="4"/><text text-anchor="middle"><tspan x="190" y="251.0">respuesta = SI o NO</tspan></text></g>
+<g class="n n-term"><rect x="120.0" y="319.0" width="140" height="46" rx="23.0"/><text text-anchor="middle"><tspan x="190" y="347.0" class=b>FIN</tspan></text></g>
+<g class="n n-term"><rect x="570.0" y="23.0" width="220" height="50" rx="25.0"/><text text-anchor="middle"><tspan x="680" y="45.0" class=b>Mensaje</tspan><tspan x="680" y="61.0">barra_actualizar</tspan></text></g>
+<g class="n n-dec"><path d="M680 110.0 L775.0 150 L680 190.0 L585.0 150 Z"/><text text-anchor="middle"><tspan x="680" y="155.0">¿ultimo = ok?</tspan></text></g>
+<g class="n n-proc"><rect x="495.0" y="219.0" width="140" height="54" rx="4"/><text text-anchor="middle"><tspan x="565" y="251.0">Lápiz verde</tspan></text></g>
+<g class="n n-proc"><rect x="725.0" y="219.0" width="140" height="54" rx="4"/><text text-anchor="middle"><tspan x="795" y="251.0">Lápiz rojo</tspan></text></g>
+<g class="n n-proc"><rect x="540.0" y="323.0" width="280" height="54" rx="4"/><text text-anchor="middle"><tspan x="680" y="347.0">Pintar la casilla (num − 1)</tspan><tspan x="680" y="363.0">de la barra de progreso</tspan></text></g>
+<g class="n n-term"><rect x="610.0" y="423.0" width="140" height="46" rx="23.0"/><text text-anchor="middle"><tspan x="680" y="451.0" class=b>FIN</tspan></text></g>
+</svg></div>
+</section></div>
+<footer><span>Proyecto de la materia <b>INFORMÁTICA EDUCATIVA II</b> · Profesorado Superior de Informática</span><span>EL JOAQUÍN PREGUNTA · Scratch 3</span></footer>
+</div>
+
+</body></html>

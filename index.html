@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tres juegos en Scratch de Informática Educativa II: El Joaquín Pregunta, Joaquín Juega y Joaquín Ataja.">
+<title>Los juegos de Joaquín</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: aplicación de cuaderno cuadriculado — barra de juegos arriba, cada juego con franja de color y subpestañas Resumen / Bloques / Flujo */
+:root{
+  --bg:#F6F7FB; --grid:#E3E7F1; --surface:#FFFFFF; --ink:#1C1F33; --muted:#5B6179; --line:#D6DBE8;
+  --accent:#3F5BF0; --on-c:#FFFFFF; --warn-bg:#FFF4D6; --warn-ink:#6B4B00;
+  --b-event:#E6A700; --b-control:#E08A00; --b-sense:#2E9FD6; --b-op:#3FA63F; --b-var:#E0641E; --b-ext:#0B9E7E; --b-look:#8A5CF5; --b-ink:#FFFFFF;
+  --p1:#7C4DEB; --p2:#D9571A; --p3:#08937A;
+  --f-display:"Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141726; --grid:#1D2135; --surface:#1C2034; --ink:#EBEDF7; --muted:#A5ABC4; --line:#2F3450;
+  --accent:#93A4FF; --on-c:#10121C; --warn-bg:#3A3014; --warn-ink:#F4D98A;
+  --b-event:#B98700; --b-control:#B56F00; --b-sense:#1E7FAE; --b-op:#2F8530; --b-var:#B85018; --b-ext:#097E65; --b-look:#6E47D0;
+  --p1:#AE8DFF; --p2:#FF9460; --p3:#36D3AF; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#141726; --grid:#1D2135; --surface:#1C2034; --ink:#EBEDF7; --muted:#A5ABC4; --line:#2F3450;
+  --accent:#93A4FF; --on-c:#10121C; --warn-bg:#3A3014; --warn-ink:#F4D98A;
+  --b-event:#B98700; --b-control:#B56F00; --b-sense:#1E7FAE; --b-op:#2F8530; --b-var:#B85018; --b-ext:#097E65; --b-look:#6E47D0;
+  --p1:#AE8DFF; --p2:#FF9460; --p3:#36D3AF; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0; color:var(--ink); font:17px/1.6 var(--f-body);
+  background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px}
+.wrap{max-width:1100px; margin:0 auto; padding-inline:clamp(16px,4vw,36px)}
+h1,h2,h3,h4{font-family:var(--f-display); text-wrap:balance; margin:0; line-height:1.12; font-weight:700}
+p{margin:0}
+button{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:6px}
+
+/* cabecera */
+.top{padding-block:28px 18px; display:flex; flex-wrap:wrap; gap:6px 20px; align-items:end; justify-content:space-between}
+.top h1{font-size:clamp(32px,5vw,48px)}
+.top h1 span{color:var(--accent)}
+.eyebrow{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+/* barra de juegos */
+.switch{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--bg); border-block:1px solid var(--line)}
+.switch .wrap{display:flex; gap:8px; padding-block:10px; overflow-x:auto}
+.gtab{flex:0 0 auto; display:flex; align-items:center; gap:10px; padding:8px 16px 8px 8px; border-radius:999px; border:2px solid var(--line); background:var(--surface); cursor:pointer; font-family:var(--f-display); font-weight:600; font-size:17px}
+.gtab .ic{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--c); color:var(--on-c); font-size:15px; font-weight:700}
+.gtab:hover{border-color:var(--c)}
+.ic svg{width:72%; height:72%; display:block}
+.gtab[aria-selected="true"]{background:var(--c); border-color:var(--c); color:var(--on-c)}
+.gtab[aria-selected="true"] .ic{background:var(--on-c); color:var(--c)}
+
+main{padding-block:28px 60px}
+
+/* bloques scratch */
+.blocks{display:flex; flex-wrap:wrap; gap:8px}
+.blk{font-family:var(--f-mono); font-size:13px; font-weight:700; color:var(--b-ink); background:var(--k); padding:6px 12px 6px 14px; border-radius:6px; position:relative; line-height:1.35; max-width:100%}
+.blk::before{content:""; position:absolute; left:10px; top:-4px; width:14px; height:5px; background:var(--k); border-radius:3px 3px 0 0}
+.blk.hat{border-radius:16px 16px 6px 6px}
+.blk.hat::before{display:none}
+.blk i{font-style:normal; font-weight:500; background:rgba(255,255,255,.26); border-radius:10px; padding:0 7px; margin:0 2px}
+.blk i.bo{border-radius:3px}
+.k-event{--k:var(--b-event)} .k-control{--k:var(--b-control)} .k-sense{--k:var(--b-sense)} .k-op{--k:var(--b-op)} .k-var{--k:var(--b-var)} .k-ext{--k:var(--b-ext)} .k-look{--k:var(--b-look)}
+.stack{display:flex; flex-direction:column; align-items:flex-start; gap:3px}
+.stack + .stack{margin-top:10px}
+.cb{background:var(--k); border-radius:6px; display:flex; flex-direction:column; align-items:flex-start; max-width:100%}
+.cb > .blk{background:transparent}
+.cb > .blk::before{background:var(--k)}
+.cb > .in{margin-left:16px; background:var(--surface); padding:5px 6px 5px 4px; display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-width:140px; max-width:calc(100% - 16px); border-radius:5px 0 0 5px}
+.cb::after{content:""; display:block; height:10px}
+.legend{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13.5px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.legend span::before{content:""; width:12px; height:12px; border-radius:3px; background:var(--k)}
+
+/* serie */
+.intro{display:grid; gap:14px; max-width:70ch; margin-bottom:26px}
+.intro p{font-size:clamp(17px,2vw,20px); color:var(--muted)}
+.intro strong{color:var(--ink)}
+.cards3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+@media (max-width:760px){ .cards3{grid-template-columns:1fr} }
+.gcard{background:var(--surface); border:2px solid var(--line); border-radius:18px; padding:18px; display:grid; gap:8px; text-align:left; cursor:pointer}
+.gcard:hover{border-color:var(--c)}
+.gcard .ic{width:44px; height:44px; border-radius:12px; background:var(--c); color:var(--on-c); display:grid; place-items:center; font-family:var(--f-display); font-size:22px; font-weight:700}
+.gcard h3{font-size:24px; color:var(--c)}
+.gcard p{font-size:15px; color:var(--muted)}
+.gcard .go{font-family:var(--f-mono); font-size:12.5px; font-weight:700; color:var(--c)}
+.sec{margin-top:44px; display:grid; gap:16px}
+.sec > h2{font-size:clamp(26px,3.5vw,34px)}
+.sec > p{color:var(--muted); max-width:65ch}
+.flow5{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; counter-reset:s}
+@media (max-width:820px){ .flow5{grid-template-columns:1fr 1fr} }
+@media (max-width:460px){ .flow5{grid-template-columns:1fr} }
+.st{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px; display:grid; gap:4px; align-content:start}
+.st .n{font-family:var(--f-mono); font-size:12px; color:var(--accent); font-weight:700}
+.st h3{font-size:18px}
+.st p{font-size:14.5px; color:var(--muted)}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:14px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:620px; font-size:15px}
+th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{font-family:var(--f-display); font-size:18px; font-weight:600}
+tbody th{font-family:var(--f-mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+tr:last-child > *{border-bottom:0}
+.c1{color:var(--p1)} .c2{color:var(--p2)} .c3{color:var(--p3)}
+.concepts{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+.concept{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px; display:grid; gap:6px; align-content:start}
+.concept h3{font-size:18px}
+.concept p{font-size:14.5px; color:var(--muted)}
+.dots{display:flex; gap:6px}
+.dot{width:12px; height:12px; border-radius:50%; border:2px solid var(--line)}
+.dot.on{background:var(--d); border-color:var(--d)}
+
+/* juego */
+.band{background:var(--c); color:var(--on-c); border-radius:22px; padding:clamp(20px,3vw,32px); display:grid; gap:10px; margin-bottom:18px}
+.band .eyebrow{color:var(--on-c); opacity:.8}
+.band h2{font-size:clamp(34px,6vw,60px)}
+.band p{font-size:clamp(16px,2vw,19px); max-width:60ch}
+.facts{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
+.facts span{font-family:var(--f-mono); font-size:12.5px; font-weight:700; padding:4px 10px; border-radius:999px; border:1.5px solid var(--on-c)}
+.subtabs{display:flex; gap:4px; border-bottom:2px solid var(--line); margin-bottom:22px; overflow-x:auto}
+.stab{flex:0 0 auto; border:0; background:none; padding:10px 16px; cursor:pointer; font-family:var(--f-display); font-weight:600; font-size:17px; color:var(--muted); border-bottom:3px solid transparent; margin-bottom:-2px}
+.stab:hover{color:var(--ink)}
+.stab[aria-selected="true"]{color:var(--c); border-bottom-color:var(--c)}
+.grid2{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:28px}
+@media (max-width:820px){ .grid2{grid-template-columns:1fr} }
+.col{display:grid; gap:22px; align-content:start; min-width:0}
+h3.lbl{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:8px}
+ol.clean,ul.clean{margin:0; padding-left:1.3em; display:grid; gap:6px}
+ol.clean li::marker, ul.clean li::marker{color:var(--c); font-weight:700}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px; display:grid; gap:12px}
+.ver{display:grid; grid-template-columns:auto 1fr; gap:2px 12px; align-items:baseline}
+.ver .tag{grid-row:span 2; font-family:var(--f-mono); font-size:12px; font-weight:700; padding:3px 8px; border-radius:6px; background:color-mix(in srgb,var(--c) 16%,transparent); color:var(--c)}
+.ver b{font-size:16px}
+.ver span{font-size:15px; color:var(--muted)}
+.note{border-left:4px solid var(--c); padding:10px 14px; background:var(--surface); border-radius:0 10px 10px 0; font-size:15.5px}
+.note b{color:var(--c)}
+
+/* aviso de verificación */
+.check{display:flex; gap:12px; align-items:flex-start; background:var(--warn-bg); color:var(--warn-ink); border-radius:12px; padding:12px 16px; font-size:15px; margin-bottom:18px}
+.check b{font-family:var(--f-mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; padding-top:2px}
+.src{display:inline-block; font-family:var(--f-mono); font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:1px 7px; border-radius:5px; vertical-align:2px; margin-left:6px}
+.src.ok{background:color-mix(in srgb,var(--b-op) 20%,transparent); color:var(--ink)}
+.src.ref{background:var(--warn-bg); color:var(--warn-ink)}
+
+.scripts{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px}
+.sprite{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px; display:grid; gap:14px; align-content:start; min-width:0; overflow-x:auto}
+.sprite h4{font-size:19px; display:grid; gap:2px}
+.sprite h4 small{font-family:var(--f-body); font-weight:400; font-size:14px; color:var(--muted)}
+
+
+footer{padding-block:26px 40px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; background:var(--bg)}
+@media (prefers-reduced-motion:no-preference){ .gtab,.gcard,.stab{transition:border-color .15s, background .15s, color .15s} }
+
+.pdfbox{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
+.pdfframe{display:block; width:100%; height:max(720px,85vh); border:0; background:#f1f3f4}
+.pdflinks{display:flex; flex-wrap:wrap; gap:6px 16px}
+.pdflinks a{color:var(--c); font-weight:700; text-decoration:none}
+[hidden]{display:none!important}
+
+@media (max-width:820px){ .grid2{grid-template-columns:minmax(0,1fr)} }
+.col{grid-template-columns:minmax(0,1fr)}
+
+.sclink{max-width:760px; width:100%; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:4px 14px; text-decoration:none; background:var(--c); color:var(--on-c); border-radius:14px; padding:14px 18px}
+.sclink:hover{filter:brightness(1.08)}
+.sct{font-family:var(--f-display); font-weight:700; font-size:19px}
+.scu{font-family:var(--f-mono); font-size:12.5px; opacity:.85; overflow-wrap:anywhere}
+.scrow{margin-top:18px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 18px; display:grid; gap:10px}
+.scrow b{font-family:var(--f-display); font-size:19px; font-weight:600}
+a.dl{text-decoration:none; display:inline-block}
+
+.dlbox{margin-top:18px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 18px; display:grid; gap:12px}
+.dlbox > div:first-child{display:grid; gap:2px}
+.dlbox b{font-family:var(--f-display); font-size:19px; font-weight:600}
+.dlbox span{color:var(--muted); font-size:15px}
+.dlbtns{display:flex; flex-wrap:wrap; gap:8px}
+.dl{border:2px solid var(--c,var(--accent)); color:var(--c,var(--accent)); background:var(--surface); border-radius:999px; padding:8px 16px; cursor:pointer; font-weight:700; font-size:15px}
+.dl:hover{background:var(--c,var(--accent)); color:var(--on-c)}
+.dl.all{--c:var(--ink)}
+.pctl .dl{border-color:var(--c); color:var(--c)}
+.dlmsg{font-size:14px; color:var(--muted); margin:0}
+.dlmsg:empty{display:none}
+
+/* reproductor */
+.player{display:grid; gap:12px}
+.stage-wrap{position:relative; width:100%; max-width:760px; aspect-ratio:4/3; margin:0 auto; background:#0E1020; border-radius:14px; overflow:hidden; touch-action:none; border:2px solid var(--c)}
+.stage{position:absolute; inset:0}
+.stage-wrap:fullscreen{max-width:none; border:0; border-radius:0; background:#000}
+.cover{position:absolute; inset:0; display:grid; place-content:center; justify-items:center; gap:10px; border:0; cursor:pointer; color:#fff; text-align:center; padding:20px;
+  background:radial-gradient(circle at 50% 42%, color-mix(in srgb,var(--c) 70%,#000) 0%, #0E1020 75%)}
+.cover .play{width:84px; height:84px; border-radius:50%; background:var(--c); color:#fff; display:grid; place-items:center; font-size:34px; padding-left:6px; box-shadow:0 0 0 8px color-mix(in srgb,var(--c) 30%,transparent)}
+.cover .ct{font-family:var(--f-display); font-size:clamp(22px,4vw,32px); font-weight:700}
+.cover .cs{font-size:15px; opacity:.85; max-width:34ch}
+.cover:hover .play{transform:scale(1.06)}
+.cover[disabled]{cursor:progress}
+.pctl{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center}
+.pctl button{border:2px solid var(--line); background:var(--surface); border-radius:999px; padding:7px 14px; cursor:pointer; font-weight:700; font-size:14.5px}
+.pctl button:hover:not([disabled]){border-color:var(--c); color:var(--c)}
+.pctl button[disabled]{opacity:.5; cursor:default}
+.pstatus{font-family:var(--f-mono); font-size:12.5px; color:var(--muted)}
+.phint{max-width:760px; margin:0 auto; font-size:15px; color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 16px}
+.phint b{color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){ .cover .play{transition:transform .15s} }
+
+/* páginas incrustadas */
+.embed{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
+.embed-bar{display:flex; justify-content:space-between; align-items:center; gap:6px 14px; flex-wrap:wrap; padding:10px 16px; border-bottom:1px solid var(--line); font-size:14px; color:var(--muted)}
+.embed-bar b{color:var(--ink); font-family:var(--f-display); font-weight:600; font-size:16px}
+.embed-bar a{color:var(--c); font-weight:700; text-decoration:none}
+.embed-bar a:hover{text-decoration:underline}
+.embed iframe{display:block; width:100%; height:900px; border:0; background:var(--surface)}
+.embed-msg{padding:28px 18px; color:var(--muted)}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px}
+.stat{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; display:grid; gap:2px}
+.stat b{font-family:var(--f-display); font-size:26px; font-weight:700; color:var(--c); font-variant-numeric:tabular-nums; line-height:1.1}
+.stat span{font-size:13.5px; color:var(--muted)}
+.lvl{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
+.lvl table{min-width:420px; font-size:14.5px}
+.lvl td,.lvl th{padding:9px 12px}
+.lvl td{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <div>
+    <div class="eyebrow">Informática Educativa II · Profesorado Superior de Informática</div>
+    <h1>Los juegos de <span>Joaquín</span></h1>
+  </div>
+  <div class="eyebrow">Serie Scratch · 3 proyectos</div>
+</header>
+
+<nav class="switch" aria-label="Juegos">
+  <div class="wrap" role="tablist">
+    <button class="gtab" role="tab" id="t-serie" data-tab="serie" aria-selected="true" style="--c:var(--accent)"><span class="ic">≡</span>La serie</button>
+    <button class="gtab" role="tab" id="t-pregunta" data-tab="pregunta" aria-selected="false" style="--c:var(--p1)"><span class="ic">?</span>Pregunta</button>
+    <button class="gtab" role="tab" id="t-juega" data-tab="juega" aria-selected="false" style="--c:var(--p2)"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 5.2A6 4.2 0 0 1 18 5.2"/><rect x="6" y="5.2" width="6" height="4.4"/><rect x="12" y="5.2" width="6" height="4.4"/><rect x="9" y="9.6" width="6" height="4.4"/><rect x="6" y="14" width="6" height="4.4"/><rect x="12" y="14" width="6" height="4.4"/><rect x="9" y="18.4" width="6" height="4.4"/></svg></span>Juega</button>
+    <button class="gtab" role="tab" id="t-ataja" data-tab="ataja" aria-selected="false" style="--c:var(--p3)"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><g><rect x="2.6" y="4.6" width="1.8" height="7" rx=".9"/><rect x="4.6" y="3.2" width="1.8" height="8" rx=".9"/><rect x="6.6" y="3.6" width="1.8" height="8" rx=".9"/><rect x="8.6" y="5" width="1.8" height="7" rx=".9"/><rect x="2.6" y="9" width="7.8" height="8" rx="2"/><rect x="0.6" y="10.4" width="2.4" height="5.2" rx="1.2" transform="rotate(-24 1.8 13)"/><rect x="2.8" y="17.8" width="7.4" height="4" rx="1" opacity=".6"/></g><g transform="translate(24 0) scale(-1 1)"><g><rect x="2.6" y="4.6" width="1.8" height="7" rx=".9"/><rect x="4.6" y="3.2" width="1.8" height="8" rx=".9"/><rect x="6.6" y="3.6" width="1.8" height="8" rx=".9"/><rect x="8.6" y="5" width="1.8" height="7" rx=".9"/><rect x="2.6" y="9" width="7.8" height="8" rx="2"/><rect x="0.6" y="10.4" width="2.4" height="5.2" rx="1.2" transform="rotate(-24 1.8 13)"/><rect x="2.8" y="17.8" width="7.4" height="4" rx="1" opacity=".6"/></g></g></svg></span>Ataja</button>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="p-serie" class="gpanel" role="tabpanel" aria-labelledby="t-serie">
+  <div class="intro">
+    <p>Tres juegos en <strong>Scratch 3</strong> con Joaquín como protagonista. Cada uno trabaja una forma de interacción distinta: <strong>responder</strong>, <strong>cabecear</strong> y <strong>patear</strong>, los dos últimos con la cámara web. Los tres comparten la misma estructura: ingreso con nombre, tres niveles y ranking.</p>
+  </div>
+  <div class="cards3">
+    <button class="gcard" data-go="pregunta" style="--c:var(--p1)"><span class="ic">?</span><h3>El Joaquín Pregunta</h3><p>Trivia Sí / No: 3 niveles de 10 preguntas, 20 segundos cada una, ranking Top 10.</p><span class="go">▶ Jugar</span></button>
+    <button class="gcard" data-go="juega" style="--c:var(--p2)"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 5.2A6 4.2 0 0 1 18 5.2"/><rect x="6" y="5.2" width="6" height="4.4"/><rect x="12" y="5.2" width="6" height="4.4"/><rect x="9" y="9.6" width="6" height="4.4"/><rect x="6" y="14" width="6" height="4.4"/><rect x="12" y="14" width="6" height="4.4"/><rect x="9" y="18.4" width="6" height="4.4"/></svg></span><h3>Joaquín Juega</h3><p>Cabecear globos con la cámara: 3 niveles de 50 globos cada vez más rápidos.</p><span class="go">▶ Jugar</span></button>
+    <button class="gcard" data-go="ataja" style="--c:var(--p3)"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><g><rect x="2.6" y="4.6" width="1.8" height="7" rx=".9"/><rect x="4.6" y="3.2" width="1.8" height="8" rx=".9"/><rect x="6.6" y="3.6" width="1.8" height="8" rx=".9"/><rect x="8.6" y="5" width="1.8" height="7" rx=".9"/><rect x="2.6" y="9" width="7.8" height="8" rx="2"/><rect x="0.6" y="10.4" width="2.4" height="5.2" rx="1.2" transform="rotate(-24 1.8 13)"/><rect x="2.8" y="17.8" width="7.4" height="4" rx="1" opacity=".6"/></g><g transform="translate(24 0) scale(-1 1)"><g><rect x="2.6" y="4.6" width="1.8" height="7" rx=".9"/><rect x="4.6" y="3.2" width="1.8" height="8" rx=".9"/><rect x="6.6" y="3.6" width="1.8" height="8" rx=".9"/><rect x="8.6" y="5" width="1.8" height="7" rx=".9"/><rect x="2.6" y="9" width="7.8" height="8" rx="2"/><rect x="0.6" y="10.4" width="2.4" height="5.2" rx="1.2" transform="rotate(-24 1.8 13)"/><rect x="2.8" y="17.8" width="7.4" height="4" rx="1" opacity=".6"/></g></g></svg></span><h3>Joaquín Ataja</h3><p>Patear penales con la cámara contra el Dibu: 3 niveles de 10 penales.</p><span class="go">▶ Jugar</span></button>
+  </div>
+
+  <div class="scrow">
+    <b>Jugar en Scratch</b>
+    <div class="dlbtns">
+      <a class="dl" href="https://scratch.mit.edu/projects/1386271093/" target="_blank" rel="noopener" style="--c:var(--p1)">El Joaquín Pregunta ↗</a>
+      <a class="dl" href="https://scratch.mit.edu/projects/1386275611/" target="_blank" rel="noopener" style="--c:var(--p2)">Joaquín Juega ↗</a>
+      <a class="dl" href="https://scratch.mit.edu/projects/1386278545/" target="_blank" rel="noopener" style="--c:var(--p3)">Joaquín Ataja ↗</a>
+    </div>
+  </div>
+  <div class="dlbox">
+    <div><b>Archivos de los juegos</b><span>Cada botón descarga el archivo .sb3 del juego. Abrilo en Scratch con Archivo › Cargar desde tu computadora.</span></div>
+    <div class="dlbtns">
+      <a class="dl" href="juegos/EL_JOAQUIN_PREGUNTA.sb3" download style="--c:var(--p1)">⬇ El Joaquín Pregunta</a>
+      <a class="dl" href="juegos/JOAQUIN_JUEGA.sb3" download style="--c:var(--p2)">⬇ Joaquín Juega</a>
+      <a class="dl" href="juegos/JOAQUIN_ATAJA.sb3" download style="--c:var(--p3)">⬇ Joaquín Ataja</a>
+      <a class="dl all" href="juegos/JUEGOS_DE_JOAQUIN.zip" download>⬇ Los tres juntos (.zip)</a>
+    </div>
+    <p class="dlmsg" aria-live="polite"></p>
+  </div>
+
+  <div class="sec">
+    <h2>El mismo recorrido en los tres</h2>
+    <p>El alumno aprende el circuito una vez y lo reconoce en cada juego. Cambia la mecánica central, no el marco.</p>
+    <div class="flow5">
+      <div class="st"><span class="n">1 · INGRESO</span><h3>Usuario</h3><p>Se pide el nombre con «preguntar y esperar» y se valida que no quede vacío.</p></div>
+      <div class="st"><span class="n">2 · NIVEL</span><h3>Dificultad</h3><p>Cada nivel reinicia los contadores y fija tiempos, velocidades o probabilidades.</p></div>
+      <div class="st"><span class="n">3 · PARTIDA</span><h3>Mecánica</h3><p>10 preguntas, 50 globos o 10 penales, con barra de progreso verde y roja.</p></div>
+      <div class="st"><span class="n">4 · SEGUIR</span><h3>¿Otro nivel?</h3><p>Al terminar se pregunta si seguir con el nivel siguiente, hasta el 3.</p></div>
+      <div class="st"><span class="n">5 · RANKING</span><h3>Posiciones</h3><p>El puntaje entra ordenado de mayor a menor en una lista.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Los tres, lado a lado</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col"><span class="eyebrow">Aspecto</span></th><th scope="col" class="c1">Pregunta</th><th scope="col" class="c2">Juega</th><th scope="col" class="c3">Ataja</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Género</th><td>Trivia Sí / No</td><td>Habilidad</td><td>Deporte</td></tr>
+          <tr><th scope="row">Entrada</th><td>Botones o teclas S / N</td><td>Cámara, imagen oculta</td><td>Cámara, imagen oculta</td></tr>
+          <tr><th scope="row">Niveles</th><td>3 × 10 preguntas</td><td>3 × 50 globos</td><td>3 × 10 penales</td></tr>
+          <tr><th scope="row">Qué cambia por nivel</th><td>Categoría de las preguntas</td><td>Velocidad, tamaño e intervalo</td><td>Tiempo para patear y % de atajada</td></tr>
+          <tr><th scope="row">Puntaje</th><td>+1 acierto · −1 error</td><td>Cabeceados − no cabeceados</td><td>+1 gol · −1 errado</td></tr>
+          <tr><th scope="row">Usuario vacío</th><td>Se vuelve a pedir</td><td>Juega como «Invitado»</td><td>Se vuelve a pedir</td></tr>
+          <tr><th scope="row">Ranking</th><td>Top 10</td><td>Completo, ordenado</td><td>Top 5, mejor puntaje por usuario</td></tr>
+          <tr><th scope="row">Objetos</th><td>5</td><td>4</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Qué conceptos de programación trabaja cada juego</h2>
+    <p>Los puntos indican en qué juegos aparece: <span class="c1">●</span> Pregunta, <span class="c2">●</span> Juega, <span class="c3">●</span> Ataja.</p>
+    <div class="concepts"><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Variables</h3><p>Puntaje, nivel, usuario, contadores.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Condicionales</h3><p>Decidir acierto, cabeceado, gol o atajada.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Listas</h3><p>Banco de preguntas, barra y ranking.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Mensajes</h3><p>Coordinar objetos con enviar y al recibir.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Azar</h3><p>Sorteo de preguntas, globos y zona del Dibu.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Niveles</h3><p>Cambiar la dificultad con variables.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Ordenamiento</h3><p>Ranking de mayor a menor.</p></div><div class="concept"><div class="dots"><span class="dot on" style="--d:var(--p1)"></span><span class="dot" style="--d:var(--p2)"></span><span class="dot" style="--d:var(--p3)"></span></div><h3>Mis bloques</h3><p>Subprocesos propios: jugar nivel, preparar preguntas.</p></div><div class="concept"><div class="dots"><span class="dot" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot on" style="--d:var(--p3)"></span></div><h3>Cámara</h3><p>Detección de movimiento con la imagen oculta.</p></div><div class="concept"><div class="dots"><span class="dot" style="--d:var(--p1)"></span><span class="dot on" style="--d:var(--p2)"></span><span class="dot" style="--d:var(--p3)"></span></div><h3>Clones</h3><p>Muchos globos cayendo a la vez.</p></div></div>
+  </div>
+</section>
+
+<section id="p-pregunta" class="gpanel" role="tabpanel" aria-labelledby="t-pregunta" style="--c:var(--p1)" hidden>
+  <div class="band">
+    <div class="eyebrow">Proyecto 1</div>
+    <h2>El Joaquín Pregunta</h2>
+    <p>Trivia de Sí o No con preguntas de Informática Básica, Ciudadanía Digital y Programación. Cada respuesta suma o resta, se explica con su justificación y el resultado entra al ranking.</p>
+    <div class="facts"><span>Trivia Sí / No</span><span>Botones o teclas S / N</span><span>20 s por pregunta</span><span>HTML + .sb3</span></div>
+  </div>
+  <div class="subtabs" role="tablist">
+    <button class="stab" role="tab" data-sub="jugar" aria-selected="true">▶ Jugar</button>
+    <button class="stab" role="tab" data-sub="resumen" aria-selected="false">Resumen</button>
+    <button class="stab" role="tab" data-sub="bloques" aria-selected="false">Bloques</button>
+    <button class="stab" role="tab" data-sub="flujo" aria-selected="false">Diagrama de flujo</button>
+  </div>
+  <div data-pane="jugar">
+    <div class="player" data-game="pregunta" data-cam="0">
+      <div class="stage-wrap">
+        <div class="stage"></div>
+        <button class="cover" type="button"><span class="play">▶</span><span class="ct">Jugar El Joaquín Pregunta</span><span class="cs">Trivia Sí / No · con mouse y teclado</span></button>
+      </div>
+      <div class="pctl">
+        <button type="button" data-act="flag" disabled>⚑ Empezar de nuevo</button>
+        <button type="button" data-act="stop" disabled>■ Detener</button>
+        <button type="button" data-act="full">⛶ Pantalla completa</button>
+        <a class="dl" href="juegos/EL_JOAQUIN_PREGUNTA.sb3" download>⬇ Descargar el juego (.sb3)</a>
+        <span class="pstatus" aria-live="polite"></span>
+      </div>
+      <p class="phint"><b>Cómo jugar acá:</b> escribí tu nombre en el cuadro que aparece y respondé con los botones <b>SÍ</b> / <b>NO</b>. Para usar las teclas <b>S</b> y <b>N</b>, hacé clic una vez sobre el escenario.</p>
+      <a class="sclink" href="https://scratch.mit.edu/projects/1386271093/" target="_blank" rel="noopener"><span class="sct">Jugar en Scratch ↗</span><span class="scu">scratch.mit.edu/projects/1386271093/</span></a>
+    </div>
+  </div>
+  <div data-pane="resumen" hidden>
+    <div class="grid2">
+      <div class="col">
+        <div><h3 class="lbl">Cómo se juega</h3><ol class="clean"><li>Escribir el nombre de usuario. Si queda vacío, se vuelve a pedir.</li><li>Elegir el nivel de inicio: 1 Básico, 2 Medio o 3 Avanzado.</li><li>Responder 10 preguntas sorteadas por categoría, con la tecla S / N o los botones, antes de que pasen 20 segundos.</li><li>Cada acierto suma 1 y cada error o respuesta fuera de tiempo resta 1. Se muestra la justificación y la barra de progreso se pinta verde o roja.</li><li>Al terminar el nivel se puede seguir con el siguiente, hasta el nivel 3. El puntaje entra al ranking Top 10.</li></ol></div>
+        <div><h3 class="lbl">Niveles</h3><div class="lvl"><table><thead><tr><th scope="col">Nivel</th><th scope="col">Nombre</th><th scope="col">Preguntas</th><th scope="col">Tiempo</th></tr></thead><tbody><tr><th scope="row">1</th><td>Básico</td><td>10</td><td>20 s</td></tr><tr><th scope="row">2</th><td>Medio</td><td>10</td><td>20 s</td></tr><tr><th scope="row">3</th><td>Avanzado</td><td>10</td><td>20 s</td></tr></tbody></table></div></div>
+        <div><h3 class="lbl">Bloques clave</h3><div class="blocks"><span class="blk hat k-event">al hacer clic en ⚑</span><span class="blk k-sense">preguntar y esperar</span><span class="blk k-control">repetir hasta que</span><span class="blk k-var">elemento de lista</span><span class="blk k-op">número al azar</span><span class="blk k-event">enviar mensaje</span><span class="blk k-look">decir</span><span class="blk" style="--k:#E8527A">jugar nivel (Mis bloques)</span></div></div>
+      </div>
+      <div class="col">
+        <div class="stats"><div class="stat"><b>75</b><span>preguntas en el banco</span></div><div class="stat"><b>367</b><span>bloques</span></div><div class="stat"><b>5</b><span>objetos</span></div><div class="stat"><b>4</b><span>bloques propios</span></div></div>
+        <div class="panel"><h3 class="lbl" style="margin:0">Ficha</h3><div class="ver"><span class="tag">Objetos</span><b>Joaquín, Botones Sí / No, Barra y Escenario</b><span>Joaquín coordina todo con 5 mensajes.</span></div><div class="ver"><span class="tag">Mis bloques</span><b>jugar nivel, preparar preguntas, guardar en ranking, mostrar ranking</b><span>Dos corren sin refrescar pantalla.</span></div><div class="ver"><span class="tag">Versiones</span><b>Web en HTML y Scratch .sb3</b><span>La web tiene contraseña; la versión Scratch pide solo el nombre.</span></div></div>
+        <p class="note"><b>Sin repetir.</b> El bloque «preparar preguntas» sortea primero una categoría y después una pregunta de esa categoría, y la quita del sorteo para que no vuelva a salir.</p>
+      </div>
+    </div>
+  </div>
+  <div data-pane="bloques" hidden>
+    <div class="pdfbox">
+      <div class="embed-bar"><b>Bloques de El Joaquín Pregunta · PDF</b><span class="pdflinks"><a href="https://drive.google.com/file/d/13vtb5L473n2zm2DjI1clwl0NlQhz7PLa/view" target="_blank" rel="noopener">Abrir en Drive ↗</a><a href="pdf/Bloques_EL_JOAQUIN_PREGUNTA.pdf" download>⬇ Descargar PDF</a></span></div>
+      <iframe class="pdfframe" data-src="https://drive.google.com/file/d/13vtb5L473n2zm2DjI1clwl0NlQhz7PLa/preview" title="Bloques de El Joaquín Pregunta (PDF)" allow="autoplay"></iframe>
+    </div>
+  </div>
+  <div data-pane="flujo" hidden><div class="embed" data-src="embeds/pregunta-flujo.html">
+      <div class="embed-bar"><b>Diagrama de flujo de El Joaquín Pregunta</b><a href="embeds/pregunta-flujo.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a></div>
+      <iframe title="Diagrama de flujo de El Joaquín Pregunta" loading="lazy"></iframe>
+    </div></div>
+</section>
+
+<section id="p-juega" class="gpanel" role="tabpanel" aria-labelledby="t-juega" style="--c:var(--p2)" hidden>
+  <div class="band">
+    <div class="eyebrow">Proyecto 2</div>
+    <h2>Joaquín Juega</h2>
+    <p>Caen globos y el jugador los cabecea moviendo la cabeza frente a la cámara. Joaquín sigue sus movimientos en pantalla. Tres niveles de 50 globos cada uno.</p>
+    <div class="facts"><span>Cabecear globos</span><span>Cámara invisible</span><span>3 × 50 globos</span><span>Login + ranking</span></div>
+  </div>
+  <div class="subtabs" role="tablist">
+    <button class="stab" role="tab" data-sub="jugar" aria-selected="true">▶ Jugar</button>
+    <button class="stab" role="tab" data-sub="resumen" aria-selected="false">Resumen</button>
+    <button class="stab" role="tab" data-sub="bloques" aria-selected="false">Bloques</button>
+    <button class="stab" role="tab" data-sub="flujo" aria-selected="false">Diagrama de flujo</button>
+  </div>
+  <div data-pane="jugar">
+    <div class="player" data-game="juega" data-cam="1">
+      <div class="stage-wrap">
+        <div class="stage"></div>
+        <button class="cover" type="button"><span class="play">▶</span><span class="ct">Jugar Joaquín Juega</span><span class="cs">Se juega con la cámara: al empezar, tocá «Permitir»</span></button>
+      </div>
+      <div class="pctl">
+        <button type="button" data-act="flag" disabled>⚑ Empezar de nuevo</button>
+        <button type="button" data-act="stop" disabled>■ Detener</button>
+        <button type="button" data-act="full">⛶ Pantalla completa</button>
+        <a class="dl" href="juegos/JOAQUIN_JUEGA.sb3" download>⬇ Descargar el juego (.sb3)</a>
+        <span class="pstatus" aria-live="polite"></span>
+      </div>
+      <p class="phint"><b>Cómo jugar:</b> tocá el botón grande y, cuando el navegador lo pida, elegí <b>Permitir</b> la cámara. Pará frente a la cámara y mové la cabeza para cabecear los globos. Si no tenés cámara o la bloqueaste, el juego pasa solo a modo <b>mouse</b>: mové el puntero sobre Joaquín.</p>
+      <a class="sclink" href="https://scratch.mit.edu/projects/1386275611/" target="_blank" rel="noopener"><span class="sct">Jugar en Scratch con cámara real ↗</span><span class="scu">scratch.mit.edu/projects/1386275611/</span></a>
+    </div>
+  </div>
+  <div data-pane="resumen" hidden>
+    <div class="grid2">
+      <div class="col">
+        <div><h3 class="lbl">Cómo se juega</h3><ol class="clean"><li>Escribir el nombre de usuario. Si queda vacío, se juega como «Invitado».</li><li>Pararse frente a la cámara: la imagen no se ve, pero detecta el movimiento.</li><li>Mover la cabeza para que Joaquín toque los globos que caen. Cada globo tocado es un cabeceado; cada uno que llega al piso, un no cabeceado.</li><li>Puntaje = cabeceados − no cabeceados. La barra avanza 6 px por globo, en verde o rojo.</li><li>Después de 50 globos el resultado entra ordenado al ranking y se elige seguir al nivel siguiente o terminar.</li></ol></div>
+        <div><h3 class="lbl">Niveles</h3><div class="lvl"><table><thead><tr><th scope="col">Nivel</th><th scope="col">Velocidad</th><th scope="col">Tamaño</th><th scope="col">Intervalo</th></tr></thead><tbody><tr><th scope="row">1</th><td>3</td><td>100 %</td><td>1,4 s</td></tr><tr><th scope="row">2</th><td>5</td><td>80 %</td><td>1 s</td></tr><tr><th scope="row">3</th><td>8</td><td>60 %</td><td>0,7 s</td></tr></tbody></table></div></div>
+        <div><h3 class="lbl">Bloques clave</h3><div class="blocks"><span class="blk hat k-event">al recibir EmpezarNivel</span><span class="blk k-ext">encender video</span><span class="blk k-ext">fijar transparencia de video a 100</span><span class="blk k-ext">movimiento de video</span><span class="blk k-control">crear clon de Globo</span><span class="blk k-sense">¿tocando Joaquín?</span><span class="blk k-var">dar a Puntaje</span><span class="blk k-var">insertar en Ranking</span></div></div>
+      </div>
+      <div class="col">
+        <div class="stats"><div class="stat"><b>3</b><span>niveles</span></div><div class="stat"><b>50</b><span>globos por nivel</span></div><div class="stat"><b>4</b><span>objetos</span></div><div class="stat"><b>8</b><span>velocidad máxima</span></div></div>
+        <div class="panel"><h3 class="lbl" style="margin:0">Ficha</h3><div class="ver"><span class="tag">Objetos</span><b>Escenario, Joaquín, Globo y Barra</b><span>El Escenario controla login, niveles y ranking.</span></div><div class="ver"><span class="tag">Globos</span><b>Clones que caen a la vez</b><span>Cada clon tiene su estado: cae, cabeceado o perdido.</span></div><div class="ver"><span class="tag">Ranking</span><b>«Usuario — N pts (Nivel n)»</b><span>Se inserta en su lugar para quedar ordenado.</span></div></div>
+        <p class="note"><b>Al terminar el nivel 3</b> se puede volver a jugar con otro usuario o terminar mostrando el ranking.</p>
+      </div>
+    </div>
+  </div>
+  <div data-pane="bloques" hidden>
+    <div class="pdfbox">
+      <div class="embed-bar"><b>Bloques de Joaquín Juega · PDF</b><span class="pdflinks"><a href="https://drive.google.com/file/d/1T_0Ylr-DfxppT9cHLoEulvqJ86IqpmRC/view" target="_blank" rel="noopener">Abrir en Drive ↗</a><a href="pdf/Bloques_JOAQUIN_JUEGA.pdf" download>⬇ Descargar PDF</a></span></div>
+      <iframe class="pdfframe" data-src="https://drive.google.com/file/d/1T_0Ylr-DfxppT9cHLoEulvqJ86IqpmRC/preview" title="Bloques de Joaquín Juega (PDF)" allow="autoplay"></iframe>
+    </div>
+  </div>
+  <div data-pane="flujo" hidden><div class="embed" data-src="embeds/juega-flujo.html">
+      <div class="embed-bar"><b>Diagrama de flujo de Joaquín Juega</b><a href="embeds/juega-flujo.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a></div>
+      <iframe title="Diagrama de flujo de Joaquín Juega" loading="lazy"></iframe>
+    </div></div>
+</section>
+
+<section id="p-ataja" class="gpanel" role="tabpanel" aria-labelledby="t-ataja" style="--c:var(--p3)" hidden>
+  <div class="band">
+    <div class="eyebrow">Proyecto 3</div>
+    <h2>Joaquín Ataja</h2>
+    <p>Tanda de penales con la cámara: el jugador patea moviéndose y el Dibu intenta atajar. Tres niveles de 10 penales, cada uno más difícil.</p>
+    <div class="facts"><span>Penales</span><span>Cámara invisible</span><span>3 × 10 penales</span><span>Ranking Top 5</span></div>
+  </div>
+  <div class="subtabs" role="tablist">
+    <button class="stab" role="tab" data-sub="jugar" aria-selected="true">▶ Jugar</button>
+    <button class="stab" role="tab" data-sub="resumen" aria-selected="false">Resumen</button>
+    <button class="stab" role="tab" data-sub="bloques" aria-selected="false">Bloques</button>
+    <button class="stab" role="tab" data-sub="flujo" aria-selected="false">Diagrama de flujo</button>
+  </div>
+  <div data-pane="jugar">
+    <div class="player" data-game="ataja" data-cam="1">
+      <div class="stage-wrap">
+        <div class="stage"></div>
+        <button class="cover" type="button"><span class="play">▶</span><span class="ct">Jugar Joaquín Ataja</span><span class="cs">Se juega con la cámara: al empezar, tocá «Permitir»</span></button>
+      </div>
+      <div class="pctl">
+        <button type="button" data-act="flag" disabled>⚑ Empezar de nuevo</button>
+        <button type="button" data-act="stop" disabled>■ Detener</button>
+        <button type="button" data-act="full">⛶ Pantalla completa</button>
+        <a class="dl" href="juegos/JOAQUIN_ATAJA.sb3" download>⬇ Descargar el juego (.sb3)</a>
+        <span class="pstatus" aria-live="polite"></span>
+      </div>
+      <p class="phint"><b>Cómo jugar:</b> tocá el botón grande y, cuando el navegador lo pida, elegí <b>Permitir</b> la cámara. Cuando aparece <b>«¡PATEÁ AHORA!»</b>, movete hacia la izquierda, al centro o hacia la derecha. Si no tenés cámara o la bloqueaste, el juego pasa solo a modo <b>mouse</b>: deslizá el puntero sobre el escenario.</p>
+      <a class="sclink" href="https://scratch.mit.edu/projects/1386278545/" target="_blank" rel="noopener"><span class="sct">Jugar en Scratch con cámara real ↗</span><span class="scu">scratch.mit.edu/projects/1386278545/</span></a>
+    </div>
+  </div>
+  <div data-pane="resumen" hidden>
+    <div class="grid2">
+      <div class="col">
+        <div><h3 class="lbl">Cómo se juega</h3><ol class="clean"><li>Escribir el nombre de usuario. Si queda vacío, se vuelve a pedir.</li><li>Cuando aparece «¡PATEÁ AHORA!», moverse frente a la cámara antes de que termine el tiempo.</li><li>La dirección del movimiento elige la zona: izquierda, centro o derecha. Si no hay movimiento a tiempo, el penal se pierde.</li><li>Si el Dibu se tira a la misma zona, ataja: el penal está errado (−1). Si no, es gol (+1). La casilla del penal se pinta verde o roja.</li><li>Después de 10 penales se suma el total y se ofrece el nivel siguiente. Al final se guarda el mejor puntaje del usuario en el ranking.</li></ol></div>
+        <div><h3 class="lbl">Niveles</h3><div class="lvl"><table><thead><tr><th scope="col">Nivel</th><th scope="col">Para patear</th><th scope="col">Dibu ataja</th><th scope="col">Tiempo del Dibu</th></tr></thead><tbody><tr><th scope="row">1</th><td>5 s</td><td>25 %</td><td>0,65 s</td></tr><tr><th scope="row">2</th><td>4 s</td><td>45 %</td><td>0,50 s</td></tr><tr><th scope="row">3</th><td>3 s</td><td>65 %</td><td>0,35 s</td></tr></tbody></table></div></div>
+        <div><h3 class="lbl">Bloques clave</h3><div class="blocks"><span class="blk hat k-event">al hacer clic en ⚑</span><span class="blk k-ext">fijar transparencia de video a 100</span><span class="blk k-ext">movimiento de video &gt; 30</span><span class="blk k-ext">dirección de video</span><span class="blk k-control">repetir 10</span><span class="blk k-op">número al azar 1 a 100</span><span class="blk k-event">enviar patear y esperar</span><span class="blk k-var">sumar a goles</span></div></div>
+      </div>
+      <div class="col">
+        <div class="stats"><div class="stat"><b>3</b><span>niveles</span></div><div class="stat"><b>10</b><span>penales por nivel</span></div><div class="stat"><b>5</b><span>objetos</span></div><div class="stat"><b>7</b><span>mensajes</span></div></div>
+        <div class="panel"><h3 class="lbl" style="margin:0">Ficha</h3><div class="ver"><span class="tag">Objetos</span><b>Relator, Pelota, Arquero Dibu, Casilla y Escenario</b><span>El Relator (el árbitro) dirige el juego con «enviar y esperar».</span></div><div class="ver"><span class="tag">Zonas</span><b>1 izquierda · 2 centro · 3 derecha</b><span>Zona 0: el jugador no pateó a tiempo.</span></div><div class="ver"><span class="tag">Ranking</span><b>Top 5 con el mejor puntaje de cada usuario</b><span>Se ordena con el método de burbuja.</span></div></div>
+        <p class="note"><b>Fórmulas.</b> tiempo = 6 − nivel · atajada = 5 + 20 × nivel · tiempo del Dibu = 0,8 − 0,15 × nivel.</p>
+      </div>
+    </div>
+  </div>
+  <div data-pane="bloques" hidden>
+    <div class="pdfbox">
+      <div class="embed-bar"><b>Bloques de Joaquín Ataja · PDF</b><span class="pdflinks"><a href="https://drive.google.com/file/d/1bkp-JdqGqZ9HJlBw3BBpR0rPgXqpVrxP/view" target="_blank" rel="noopener">Abrir en Drive ↗</a><a href="pdf/Bloques_JOAQUIN_ATAJA.pdf" download>⬇ Descargar PDF</a></span></div>
+      <iframe class="pdfframe" data-src="https://drive.google.com/file/d/1bkp-JdqGqZ9HJlBw3BBpR0rPgXqpVrxP/preview" title="Bloques de Joaquín Ataja (PDF)" allow="autoplay"></iframe>
+    </div>
+  </div>
+  <div data-pane="flujo" hidden><div class="embed" data-src="embeds/ataja-flujo.html">
+      <div class="embed-bar"><b>Diagrama de flujo de Joaquín Ataja</b><a href="embeds/ataja-flujo.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a></div>
+      <iframe title="Diagrama de flujo de Joaquín Ataja" loading="lazy"></iframe>
+    </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Serie «Joaquín» · Informática Educativa II, Profesorado Superior de Informática · 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@turbowarp/scaffolding@0.4.0/dist/scaffolding-min.js"></script>
+<script>
+(function(){
+  function syncTheme(fr){
+    try{ var d=fr.contentDocument; if(!d) return; var t=document.documentElement.getAttribute('data-theme');
+      if(t) d.documentElement.setAttribute('data-theme',t); else d.documentElement.removeAttribute('data-theme'); }catch(e){}
+  }
+  function loadEmbed(box){
+    if(!box || box.dataset.loaded) return;
+    box.dataset.loaded='1';
+    var fr=box.querySelector('iframe');
+    fr.addEventListener('load', function(){
+      syncTheme(fr);
+      try{
+        var d=fr.contentDocument;
+        var fit=function(){ var h=Math.ceil(d.body.getBoundingClientRect().height)+24; if(h>200) fr.style.height=h+'px'; };
+        fit(); setTimeout(fit,600); setTimeout(fit,2000);
+        if(window.ResizeObserver) new ResizeObserver(fit).observe(d.body);
+      }catch(e){}
+    });
+    fetch(box.dataset.src).then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function(t){ fr.srcdoc=t; })
+      .catch(function(){
+        fr.hidden=true;
+        var m=document.createElement('p'); m.className='embed-msg';
+        m.textContent='No se pudo cargar esta página aquí. Abrila con el enlace de arriba.';
+        box.appendChild(m);
+      });
+  }
+  new MutationObserver(function(){ document.querySelectorAll('.embed iframe').forEach(syncTheme); })
+    .observe(document.documentElement,{attributes:true, attributeFilter:['data-theme']});
+
+
+  /* ---------- cámara simulada: el puntero hace de cámara ---------- */
+  function FakeCam(state){
+    this.state=state; this.mirror=true; this.enabled=false;
+    this.cv=document.createElement('canvas'); this.cx=this.cv.getContext('2d',{willReadFrequently:true});
+    var p=document.createElement('canvas'); p.width=p.height=20; var pc=p.getContext('2d');
+    pc.fillStyle='#fff'; pc.fillRect(0,0,20,20); pc.fillStyle='#000'; pc.fillRect(0,0,10,10); pc.fillRect(10,10,10,10);
+    this.pat=this.cx.createPattern(p,'repeat');
+  }
+  FakeCam.prototype.enableVideo=function(){ this.enabled=true; return Promise.resolve(this); };
+  FakeCam.prototype.disableVideo=function(){ this.enabled=false; };
+  Object.defineProperty(FakeCam.prototype,'videoReady',{get:function(){ return this.enabled; }});
+  Object.defineProperty(FakeCam.prototype,'video',{get:function(){ return null; }});
+  FakeCam.prototype.onError=function(){};
+  FakeCam.prototype.getFrame=function(o){
+    if(!this.enabled) return null;
+    o=o||{}; var d=o.dimensions||[480,360], w=d[0], h=d[1], cv=this.cv, cx=this.cx;
+    if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; }
+    cx.setTransform(1,0,0,1,0,0); cx.fillStyle='#fff'; cx.fillRect(0,0,w,h);
+    var st=this.state;
+    if(st.x!=null){
+      var k=w/480, x=st.x*k, y=st.y*k, r=78*k;
+      cx.translate(x,y); cx.beginPath(); cx.arc(0,0,r,0,Math.PI*2); cx.fillStyle=this.pat; cx.fill();
+      cx.setTransform(1,0,0,1,0,0);
+    }
+    return (o.format==='canvas') ? cv : cx.getImageData(0,0,w,h);
+  };
+
+  function b64ToBuf(id){
+    var bin=atob(document.getElementById(id).textContent.trim()), n=bin.length, u=new Uint8Array(n);
+    for(var i=0;i<n;i++) u[i]=bin.charCodeAt(i);
+    return u.buffer;
+  }
+
+  var players={};
+  function setupPlayer(el){
+    var game=el.dataset.game, cam=el.dataset.cam==='1';
+    var wrap=el.querySelector('.stage-wrap'), stage=el.querySelector('.stage'), cover=el.querySelector('.cover');
+    var status=el.querySelector('.pstatus');
+    var bFlag=el.querySelector('[data-act="flag"]'), bStop=el.querySelector('[data-act="stop"]'), bFull=el.querySelector('[data-act="full"]');
+    var pl={sc:null};
+    players[game]=pl;
+    var pt={x:null,y:null};
+    function track(e){
+      var c=stage.querySelector('canvas'); if(!c) return;
+      var r=c.getBoundingClientRect(); if(!r.width) return;
+      pt.x=(e.clientX-r.left)/r.width*480; pt.y=(e.clientY-r.top)/r.height*360;
+    }
+    wrap.addEventListener('pointermove',track); wrap.addEventListener('pointerdown',track);
+    wrap.addEventListener('pointerleave',function(){ pt.x=null; pt.y=null; });
+
+    var FILES={pregunta:'EL_JOAQUIN_PREGUNTA',juega:'JOAQUIN_JUEGA',ataja:'JOAQUIN_ATAJA'};
+    function askCamera(){
+      if(!cam) return Promise.resolve({ok:true});
+      if(!window.isSecureContext||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) return Promise.resolve({ok:false,why:'este navegador o esta dirección no permiten usar la cámara'});
+      return navigator.mediaDevices.getUserMedia({video:true,audio:false}).then(function(st){ st.getTracks().forEach(function(t){t.stop()}); return {ok:true}; },
+        function(e){ var n=e&&e.name; var why=n==='NotAllowedError'?'el permiso de cámara está bloqueado':n==='NotFoundError'?'no se encontró ninguna cámara':n==='NotReadableError'?'otro programa está usando la cámara':'no se pudo abrir la cámara';
+          var tip=n==='NotFoundError'?'Conectá una cámara y recargá la página.':n==='NotReadableError'?'Cerrá Meet, Zoom u otra app que use la cámara y recargá.':'Para habilitarla: candado de la barra de direcciones › Cámara › Permitir, y recargá.';
+          return {ok:false,why:why,tip:tip}; });
+    }
+    cover.addEventListener('click', function(){
+      if(pl.sc||pl.busy) return;
+      if(!window.Scaffolding){ status.textContent='No se pudo cargar el reproductor de Scratch. Revisá la conexión y recargá la página.'; return; }
+      cover.disabled=true; pl.busy=true; cover.querySelector('.ct').textContent=cam?'Pidiendo permiso de cámara…':'Cargando…';
+      askCamera().then(function(camres){ pl.busy=false; start(camres); });
+    });
+    function start(camres){
+      cover.querySelector('.ct').textContent='Cargando…';
+      var useMouse = cam && !camres.ok;
+      try{
+        var sc=new Scaffolding.Scaffolding();
+        sc.width=480; sc.height=360; sc.resizeMode='preserve-ratio'; sc.editableLists=false;
+        sc.setup();
+        if(useMouse) sc.vm.setVideoProvider(new FakeCam(pt));
+        sc.appendTo(stage);
+        pl.sc=sc;
+        fetch('juegos/'+FILES[game]+'.sb3').then(function(r){ if(!r.ok) throw new Error('archivo no encontrado'); return r.arrayBuffer(); }).then(function(buf){ return sc.loadProject(buf); }).then(function(){
+          cover.hidden=true; bFlag.disabled=false; bStop.disabled=false;
+          if(cam) status.textContent = useMouse ? ('Modo mouse: '+camres.why+'. '+(camres.tip||'')) : 'Cámara activa';
+          try{ sc.relayout(); }catch(e){}
+          sc.greenFlag();
+        }).catch(function(err){
+          cover.disabled=false; cover.querySelector('.ct').textContent='Reintentar';
+          status.textContent='No se pudo abrir el juego ('+(err&&err.message||err)+').';
+          pl.sc=null;
+        });
+      }catch(err){
+        cover.disabled=false; cover.querySelector('.ct').textContent='Reintentar';
+        status.textContent='No se pudo iniciar el reproductor ('+(err&&err.message||err)+').';
+      }
+    }
+    bFlag.addEventListener('click',function(){ if(pl.sc){ pl.sc.stopAll(); pl.sc.greenFlag(); } });
+    bStop.addEventListener('click',function(){ if(pl.sc) pl.sc.stopAll(); });
+    bFull.addEventListener('click',function(){
+      var p=wrap.requestFullscreen&&wrap.requestFullscreen();
+      if(p&&p.catch) p.catch(function(){ status.textContent='Este navegador no permite pantalla completa aquí.'; });
+      if(!wrap.requestFullscreen) status.textContent='Este navegador no permite pantalla completa aquí.';
+    });
+  }
+  document.querySelectorAll('.player').forEach(setupPlayer);
+  function relayoutAll(){ Object.keys(players).forEach(function(k){ var s=players[k].sc; if(s){ try{s.relayout();}catch(e){} } }); }
+  window.addEventListener('resize',relayoutAll);
+  document.addEventListener('fullscreenchange',function(){ setTimeout(relayoutAll,50); });
+  function stopOthers(id){ Object.keys(players).forEach(function(k){ if(k!==id&&players[k].sc){ try{players[k].sc.stopAll();}catch(e){} } }); }
+
+
+
+  var gtabs=document.querySelectorAll('.gtab');
+  function activeEmbed(panel){
+    var pf=panel.querySelector('[data-pane]:not([hidden]) .pdfframe'); if(pf&&!pf.src) pf.src=pf.dataset.src;
+    var pane=panel.querySelector('[data-pane]:not([hidden])');
+    if(pane) loadEmbed(pane.querySelector('.embed'));
+  }
+  function showGame(id, push){
+    if(!document.getElementById('p-'+id)) id='serie';
+    gtabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.tab===id ? 'true':'false'); });
+    document.querySelectorAll('.gpanel').forEach(function(p){ p.hidden = p.id!=='p-'+id; });
+    activeEmbed(document.getElementById('p-'+id));
+    stopOthers(id); setTimeout(relayoutAll,30);
+    if(push){ try{ history.replaceState(null,'','#'+id); }catch(e){} window.scrollTo({top:0}); }
+  }
+  gtabs.forEach(function(t){ t.addEventListener('click', function(){ showGame(t.dataset.tab, true); }); });
+  document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ showGame(b.dataset.go, true); }); });
+  document.querySelectorAll('.gpanel').forEach(function(p){
+    var st=p.querySelectorAll('.stab');
+    st.forEach(function(b){ b.addEventListener('click', function(){
+      st.forEach(function(x){ x.setAttribute('aria-selected', x===b ? 'true':'false'); });
+      p.querySelectorAll('[data-pane]').forEach(function(pn){ pn.hidden = pn.dataset.pane!==b.dataset.sub; });
+      activeEmbed(p);
+      if(b.dataset.sub!=='jugar'){ var g=p.id.slice(2); if(players[g]&&players[g].sc) players[g].sc.stopAll(); }
+      else setTimeout(relayoutAll,30);
+    }); });
+  });
+  var h=(location.hash||'').slice(1);
+  if(h) showGame(h,false);
+})();
+</script>
+</body>
+</html>

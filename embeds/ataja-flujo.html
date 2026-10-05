@@ -1,0 +1,219 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Diagrama de flujo de Joaquín Ataja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,800&display=swap">
+<style>
+:root{
+  --bg:#EDF1EC; --surface:#FFFFFF; --ink:#16241E; --muted:#55655D; --line:#CAD4CD;
+  --accent:#0E7A4F; --accent-ink:#FFFFFF;
+  --proc:#FFFFFF; --proc-s:#16241E;
+  --io:#DCEEF7; --io-s:#2E8EB8;
+  --dec:#FFF1D2; --dec-s:#CF8B17;
+  --term:#0E7A4F; --term-t:#FFFFFF;
+  --yes:#0E7A4F; --no:#B3261E; --edge:#3E4E47;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Nunito Sans","Segoe UI",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1A16; --surface:#15231E; --ink:#E6EDE8; --muted:#9FB1A7; --line:#2A3D35;
+    --accent:#3FCB8C; --accent-ink:#0B1712;
+    --proc:#15231E; --proc-s:#C9D6CF; --io:#12303D; --io-s:#5CB1D6;
+    --dec:#3A2C0E; --dec-s:#FFAB19; --term:#3FCB8C; --term-t:#0B1712;
+    --yes:#3FCB8C; --no:#FF7A70; --edge:#A9BAB1;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1A16; --surface:#15231E; --ink:#E6EDE8; --muted:#9FB1A7; --line:#2A3D35;
+  --accent:#3FCB8C; --accent-ink:#0B1712;
+  --proc:#15231E; --proc-s:#C9D6CF; --io:#12303D; --io-s:#5CB1D6;
+  --dec:#3A2C0E; --dec-s:#FFAB19; --term:#3FCB8C; --term-t:#0B1712;
+  --yes:#3FCB8C; --no:#FF7A70; --edge:#A9BAB1;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--body);padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:28px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.02}
+p{margin:0}
+header{padding-block:34px 0;display:grid;gap:14px}
+.eyebrow{font:800 12px/1 var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--accent)}
+.title{font-size:clamp(44px,8vw,86px);font-weight:800;text-transform:uppercase}
+.title span{color:var(--accent)}
+.credit{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;border-top:2px solid var(--ink);padding-top:12px}
+.credit b{font:800 15px/1.3 var(--body);text-transform:uppercase;letter-spacing:.04em}
+.credit em{font-style:normal;color:var(--muted)}
+.lead{color:var(--muted);max-width:65ch}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+@media (max-width:900px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
+.chart{overflow-x:auto;padding:10px}
+svg.fc{display:block;width:100%;min-width:720px;height:auto}
+.side{display:grid;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+@media (max-width:900px){.side{position:static}}
+.side h3{font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.sym{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:center}
+.sym svg{width:62px;height:34px}
+.sym small{display:block;color:var(--muted);font-size:13px;line-height:1.35}
+.list{display:grid;gap:12px}
+.map{display:grid;gap:8px;font-size:14px}
+.map div{display:flex;gap:8px;align-items:baseline}
+.pill{font:700 12px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;color:#fff;padding:5px 8px;border-radius:999px;white-space:nowrap}
+footer{border-top:2px solid var(--ink);padding-top:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+footer b{color:var(--ink)}
+/* svg */
+.fc text{font-family:var(--body);fill:var(--ink)}
+.fc .t1{font-weight:800;font-size:15px}
+.fc .t2{font-weight:600;font-size:12.5px;fill:var(--muted)}
+.fc .proc{fill:var(--proc);stroke:var(--proc-s);stroke-width:1.6}
+.fc .io{fill:var(--io);stroke:var(--io-s);stroke-width:1.6}
+.fc .dec{fill:var(--dec);stroke:var(--dec-s);stroke-width:1.6}
+.fc .term{fill:var(--term)}
+.fc .termt{fill:var(--term-t);font-weight:800;font-size:16px;letter-spacing:.08em}
+.fc .edge{fill:none;stroke:var(--edge);stroke-width:1.7}
+.fc .ah{fill:var(--edge)}
+.fc .yes{fill:var(--yes);font-weight:800;font-size:13px}
+.fc .no{fill:var(--no);font-weight:800;font-size:13px}
+.fc .lane{fill:var(--accent);font-weight:800;font-size:12px;letter-spacing:.1em}
+.fc .dot{fill:var(--edge)}
+.fc .zone{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-dasharray:6 5}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Proyecto Scratch 3 · Diagrama de flujo</p>
+  <h1 class="title">Joaquín <span>ataja</span></h1>
+  <div class="credit"><b>Materia: Informática Educativa II</b><em>Profesorado Superior de Informática</em></div>
+  <p class="lead">Recorrido completo del programa, desde la bandera verde hasta el ranking final: login, cámara, los 10 penales de cada nivel, el paso al nivel siguiente y el ordenamiento del ranking.</p>
+</header>
+
+<div class="layout">
+  <div class="panel chart">
+    <svg class="fc" id="fc" viewBox="0 0 930 2250" role="img" aria-label="Diagrama de flujo del juego Joaquín Ataja">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker>
+      </defs>
+    </svg>
+  </div>
+  <aside class="side">
+    <div class="panel list">
+      <h3>Simbología</h3>
+      <div class="sym"><svg viewBox="0 0 62 34"><rect x="2" y="4" width="58" height="26" rx="13" fill="var(--term)"/></svg><span><b>Inicio / Fin</b><small>Bandera verde y pantalla final.</small></span></div>
+      <div class="sym"><svg viewBox="0 0 62 34"><rect x="3" y="5" width="56" height="24" fill="var(--proc)" stroke="var(--proc-s)" stroke-width="1.6"/></svg><span><b>Proceso</b><small>Cálculos y asignación de variables.</small></span></div>
+      <div class="sym"><svg viewBox="0 0 62 34"><polygon points="12,5 60,5 50,29 2,29" fill="var(--io)" stroke="var(--io-s)" stroke-width="1.6"/></svg><span><b>Entrada / Salida</b><small>Preguntar al jugador o mostrar en pantalla.</small></span></div>
+      <div class="sym"><svg viewBox="0 0 62 34"><polygon points="31,2 60,17 31,32 2,17" fill="var(--dec)" stroke="var(--dec-s)" stroke-width="1.6"/></svg><span><b>Decisión</b><small>Pregunta de sí o no. Cada salida está rotulada.</small></span></div>
+    </div>
+    <div class="panel list">
+      <h3>En Scratch es…</h3>
+      <div class="map">
+        <div><span class="pill" style="background:#FFAB19">si … entonces</span><span>cada rombo</span></div>
+        <div><span class="pill" style="background:#FFAB19">repetir 10</span><span>la vuelta de «¿penal &lt; 10?»</span></div>
+        <div><span class="pill" style="background:#FFAB19">repetir hasta que</span><span>login, espera del remate y niveles</span></div>
+        <div><span class="pill" style="background:#5CB1D6">preguntar y esperar</span><span>paralelogramos de entrada</span></div>
+        <div><span class="pill" style="background:#0FBD8C">video movimiento</span><span>detección del remate</span></div>
+        <div><span class="pill" style="background:#FF8C1A">dar a / sumar a</span><span>rectángulos de proceso</span></div>
+        <div><span class="pill" style="background:#FFBF00">enviar y esperar</span><span>avisos a Pelota, Dibu y Casilla</span></div>
+      </div>
+    </div>
+    <div class="panel list">
+      <h3>Datos clave</h3>
+      <p style="font-size:14px">Cada nivel tiene <b>10 penales</b>. Un gol suma 1 punto y un penal errado resta 1.<br>Nivel 1: 5 s, el Dibu ataja 25 %.<br>Nivel 2: 4 s, 45 %.<br>Nivel 3: 3 s, 65 %.<br>Zonas: 1 = izquierda · 2 = centro · 3 = derecha.</p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <span><b>JOAQUÍN ATAJA</b> · Proyecto de la materia <b>INFORMÁTICA EDUCATIVA II</b></span>
+  <span>Profesorado Superior de Informática</span>
+</footer>
+</div>
+
+<script>
+const svg=document.getElementById('fc');
+let out='';
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function txt(cx,cy,lines,cls1='t1'){
+  const lh=17, top=cy-(lines.length-1)*lh/2;
+  return lines.map((l,i)=>`<text x="${cx}" y="${top+i*lh+5}" text-anchor="middle" class="${i===0?cls1:'t2'}">${esc(l)}</text>`).join('');
+}
+const box={};
+function proc(id,cx,cy,w,h,lines){box[id]={cx,cy,w,h};out+=`<rect class="proc" x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" rx="3"/>`+txt(cx,cy,lines);}
+function io(id,cx,cy,w,h,lines){box[id]={cx,cy,w,h};const k=16;out+=`<polygon class="io" points="${cx-w/2+k},${cy-h/2} ${cx+w/2+k},${cy-h/2} ${cx+w/2-k},${cy+h/2} ${cx-w/2-k},${cy+h/2}"/>`+txt(cx,cy,lines);}
+function dec(id,cx,cy,w,h,lines){box[id]={cx,cy,w,h};out+=`<polygon class="dec" points="${cx},${cy-h/2} ${cx+w/2},${cy} ${cx},${cy+h/2} ${cx-w/2},${cy}"/>`+txt(cx,cy,lines);}
+function term(id,cx,cy,label){box[id]={cx,cy,w:170,h:46};out+=`<rect class="term" x="${cx-85}" y="${cy-23}" width="170" height="46" rx="23"/><text x="${cx}" y="${cy+6}" text-anchor="middle" class="termt">${label}</text>`;}
+function edge(pts,arrow=true){out+=`<path class="edge" d="M${pts.map(p=>p.join(' ')).join(' L')}" ${arrow?'marker-end="url(#ah)"':''}/>`;}
+function lbl(x,y,t,cls,anchor='start'){out+=`<text x="${x}" y="${y}" class="${cls}" text-anchor="${anchor}">${esc(t)}</text>`;}
+const T=id=>box[id].cy-box[id].h/2, Bt=id=>box[id].cy+box[id].h/2;
+const C=450, W=340;
+
+/* ---- nodos ---- */
+term('ini',C,40,'INICIO');
+proc('p1',C,118,W,54,['Inicializar variables','nivel = 1 · total = 0 · usuario vacío']);
+io('io1',C,196,W,50,['Mostrar portada y ranking Top 5']);
+io('io2',C,272,W,54,['Leer el usuario','«Ingresá tu nombre de usuario»']);
+dec('d1',C,368,240,88,['¿Usuario vacío?']);
+proc('p2',C,462,W,54,['Encender la cámara','transparencia 100 %: la imagen no se ve']);
+proc('p3',C,550,W,70,['Configurar el nivel','tiempo = 6 − nivel · atajada = 5 + 20 × nivel','penal = goles = errados = puntos = 0']);
+proc('p4',C,642,W,54,['penal = penal + 1','Pelota y Dibu vuelven al centro']);
+io('io3',C,720,W,54,['Mostrar «¡PATEÁ AHORA!» y silbato','reiniciar el cronómetro']);
+dec('d2',C,826,250,100,['¿Movimiento','del video > 30?']);
+dec('d3',740,826,200,100,['¿Cronómetro','> tiempo?']);
+proc('p5',C,938,280,70,['Calcular la zona del remate','dirección < −45 → 1 (izq.)','> 45 → 3 (der.) · resto → 2']);
+proc('tarde',740,938,200,58,['zona = 0','no pateó a tiempo']);
+proc('p6',C,1034,300,70,['El Dibu elige su zona','azar 1–100 ≤ atajada → adivina','si no, se tira a otra zona']);
+proc('p7',C,1122,300,54,['Enviar «patear»','la pelota y el Dibu se deslizan']);
+dec('d4',C,1222,250,100,['¿Zona pelota','= zona Dibu?']);
+proc('gol',190,1340,250,74,['GOL','goles + 1 · puntos + 1','casilla verde · «¡GOOOL!»']);
+proc('err',740,1340,250,74,['PENAL ERRADO','errados + 1 · puntos − 1','casilla roja · «¡La atajó!»']);
+dec('d5',C,1470,230,88,['¿penal < 10?']);
+proc('p8',C,1572,W,54,['total = total + puntos','mostrar el resumen del nivel']);
+dec('d6',C,1670,230,88,['¿nivel < 3?']);
+io('io4',C,1770,W,54,['Preguntar «¿Querés seguir','en el nivel siguiente? (si / no)»']);
+dec('d7',C,1872,250,96,['¿Respuesta','= «si»?']);
+proc('p9',740,1872,180,50,['nivel = nivel + 1']);
+proc('p10',C,1978,W,54,['Apagar la cámara y guardar','conserva el mejor puntaje del usuario']);
+proc('p11',C,2054,W,50,['Ordenar el ranking (burbuja)','de mayor a menor']);
+io('io5',C,2122,W,46,['Mostrar pantalla final y Top 5']);
+
+/* ---- zona del bucle de penales ---- */
+out=`<rect class="zone" x="20" y="604" width="858" height="922" rx="12"/><text x="36" y="596" class="lane">REPETIR 10 VECES · UN PENAL POR VUELTA</text>`+out;
+
+/* ---- conexiones rectas ---- */
+[['ini','p1'],['p1','io1'],['io1','io2'],['io2','d1'],['p2','p3'],['p3','p4'],['p4','io3'],['p5','p6'],['p6','p7'],['p7','d4'],['p8','d6'],['io4','d7'],['p10','p11'],['p11','io5']]
+ .forEach(([a,b])=>edge([[C,Bt(a)],[C,T(b)-2]]));
+edge([[C,Bt('io3')],[C,T('d2')-2]]);
+/* d1 */
+edge([[C,Bt('d1')],[C,T('p2')-2]]); lbl(C+10,Bt('d1')+17,'No','no');
+edge([[C+120,368],[700,368],[700,272],[C+W/2+16,272]]); lbl(C+132,360,'Sí','yes'); lbl(708,322,'volver a preguntar','t2');
+/* d2 / d3 */
+edge([[C,Bt('d2')],[C,T('p5')-2]]); lbl(C+10,Bt('d2')+17,'Sí','yes');
+edge([[C+125,826],[640-2,826]]); lbl(C+132,818,'No','no');
+edge([[740,776],[740,748],[C+10,748]]); lbl(748,762,'No: sigue esperando','no');
+edge([[740,876],[740,T('tarde')-2]]); lbl(748,896,'Sí','yes');
+edge([[740,Bt('tarde')],[740,T('err')-2]]);
+/* d4 */
+edge([[C-125,1222],[190,1222],[190,T('gol')-2]]); lbl(C-140,1214,'No','no','end');
+edge([[C+125,1222],[740,1222]],false); out+=`<circle class="dot" cx="740" cy="1222" r="4.5"/>`; lbl(C+136,1214,'Sí','yes');
+/* unión gol / errado */
+edge([[190,Bt('gol')],[190,1404],[C,1404]],false);
+edge([[740,Bt('err')],[740,1404],[C,1404]],false);
+out+=`<circle class="dot" cx="${C}" cy="1404" r="4.5"/>`;
+edge([[C,1404],[C,T('d5')-2]]);
+/* d5 */
+edge([[C-115,1470],[48,1470],[48,642],[C-W/2-2,642]]); lbl(C-128,1462,'Sí','yes','end'); lbl(58,1060,'próximo','t2'); lbl(58,1077,'penal','t2');
+edge([[C,Bt('d5')],[C,T('p8')-2]]); lbl(C+10,Bt('d5')+27,'No','no');
+/* d6 */
+edge([[C,Bt('d6')],[C,T('io4')-2]]); lbl(C+10,Bt('d6')+17,'Sí','yes');
+edge([[C-115,1670],[130,1670],[130,1978],[C-W/2-2,1978]]); lbl(C-128,1662,'No','no','end'); lbl(140,1830,'terminó','t2'); lbl(140,1847,'el nivel 3','t2');
+/* d7 */
+edge([[C+125,1872],[650-2,1872]]); lbl(C+134,1864,'Sí','yes');
+edge([[830,1872],[905,1872],[905,550],[C+W/2+2,550]]); lbl(897,1700,'siguiente','lane','end'); lbl(897,1716,'nivel','lane','end');
+edge([[C,Bt('d7')],[C,T('p10')-2]]); lbl(C+10,Bt('d7')+17,'No','no');
+term('fin',C,2206,'FIN');
+edge([[C,Bt('io5')],[C,2183-2]]);
+svg.innerHTML+=out;
+</script>
+
+</body></html>
