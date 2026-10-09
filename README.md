@@ -8,6 +8,13 @@ Serie de tres juegos en Scratch de la materia **Informática Educativa II** (Pro
 
 La página `index.html` reproduce los juegos dentro del sitio, con la cámara real. Si la cámara no está disponible, los juegos se pueden jugar con el mouse.
 
+## Equipo del proyecto
+
+- **Directora de Proyectos Informáticos:** Prof. Adriana Comas
+- **Administrador en Software:** Juan Omar Domínguez
+- **Administrador en Hardware:** David Rubén González
+- **Facilitador Tecnológico y Coordinación Digital:** Pablo Daniel Martinez
+
 ## Carpetas
 
 - `juegos/`: archivos `.sb3` de cada juego (se abren en Scratch con Archivo › Cargar desde tu computadora).
